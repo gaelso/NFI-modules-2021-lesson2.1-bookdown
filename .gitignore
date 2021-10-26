@@ -1,3 +1,14 @@
+
+## Custom gitignore
+
+_bookdown_files/
+data/
+!docs/data/
+fonts/
+Handbook/
+results/
+*.log
+
 # History files
 .Rhistory
 .Rapp.history

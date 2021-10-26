@@ -1,0 +1,102 @@
+
+
+# Systematic sampling design - demo
+
+Now let's see what sampling grid spacing this would lead to. This way we can account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.
+
+To practice R code we will process by try and error. We will start with a rather large grid spacing, based on a simple cross-multiplication and then reproduce the code for smaller grids until we reach a number of plots close to our budget constraints. 
+
+The new land fits more or less in a 90 km square, meaning that if we were to place a sampling plot at the center of each square of a 1 km grid we would have 90 * 90 = ```r 90^2``` sampling plots. Similarly a 4 km grid would give us approximately (90 / 4)^2 = ```r (90/4)^2``` plots. This is close to the number of plots for 10% precision on AGB so we will start there.
+
+The `sf` package contains the function `st_make_grid()` to create random and grid points within an existing polygon.  Let's make the grid. We have the `sf_admin` shapefile that contains the administrative boundary of ```r newland_name``` and can be used as a canvas for the grid. 
+
+:::::::{.infobox data-latex=""}
+
+We will also offset the grid starting point 1 km South and 1 km West of the land most Southern and Western point to avoid have too many plots at the edge of the land. This is a precaution specific for this exercise and may not be needed in a real country! The `offset` is calculated based on the land cover shapefile bounding box calculated with `st_bbox()`.
+
+```{r offset}
+
+offset <- st_bbox(sf_lc)[c("xmin", "ymin")] + c(-1000, -1000)
+
+```
+
+:::::::
+
+
+To make the grid we use the option `what = "polygon"`...
+
+```{r grid4}
+
+sf_grid4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "polygons", offset = offset) %>%
+  st_intersection(sf_admin)
+
+```
+
+... And to make points we change the option to `what = "center"` (replace `"center"` with `"corner"` to have the points at the grid intersections).
+
+```{r points4}
+
+sf_points4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+\  
+
+After that, we can then extract the land cover information at each plot location with `st_intersection()`... 
+
+```{r plot4}
+
+sf_plot4 <- sf_points4 %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+... And visualize the grid with the following code (we have a custom color palette `pal` for ```r newland_name``` land covers).
+
+```{r ggplot4}
+
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot4, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_grid4, fill = NA, col = "red", size = 0.6) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+\  
+
+Looking good! To calculate the number of plot in each forest type and the total we can use `group_by()` and `summarise()` again. 
+
+```{r nplot4}
+
+nplot4 <- sf_plot4 %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot4 
+
+```
+
+Finally, we need to remove non-forest categories with `filter()` and sum the remaining number of plots.
+
+```{r nplot4_total}
+
+nplot4_total <- nplot4 %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(n = sum(n))
+nplot4_total
+
+```
+
+\  
+
+While we can definitely afford this sampling size, we can intensify a bit to increase our precision. In our very first approximation we didn't account for the fact that a good proportion of the land is non-forest. In the next session you will prepare grids of 3 and 2 km width and calculate the number of forested plots.
+
+\  
+

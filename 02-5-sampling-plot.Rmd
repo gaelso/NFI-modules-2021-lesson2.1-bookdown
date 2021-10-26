@@ -1,0 +1,41 @@
+
+
+## Plot designs
+
+In this version of the interactive module, the plot design is limited to one choice:
+
+- circular plot of 20 m radius for all trees with a diameter at breast height bigger than orr equal to 20 cm,
+- nested circular plot of 5 m radius for trees with a diameter at breast height bigger than or equal to 10 cm and smaller than 20 cm.
+
+Let's see for example all the trees measured in one plot: `"ev-ywt8"`.
+
+```{r}
+
+nb_tree <- tree %>%
+  group_by(plot_id) %>%
+  summarise(count = n()) %>%
+  filter(count >= max(count) - 30)
+
+show_plot <- tree %>%
+  filter(plot_id == "ev-ywt8") %>%
+  mutate(angle = pi - pi / 180 * tree_azimuth) %>%
+  ggplot(aes(x = angle, y = tree_dist)) +
+  geom_point(aes(size = tree_dbh, fill = tree_azimuth), shape = 21) +
+  scale_x_continuous(
+    expand = c(0, 0), 
+    limits = c(-pi, pi),
+    breaks = c(-2:2) * pi/2,
+    labels = c("360", "270", "180", "90", "0")
+  ) +
+  scale_fill_viridis_c() +
+  coord_polar(theta = "x", start = 0, direction = -1) +
+  geom_hline(aes(yintercept = plot_radius), col = "darkred") +
+  geom_hline(aes(yintercept = subplot_radius), col = "darkred") +
+  theme_bw() +
+  ylim(0, 20) +
+  labs(x = "", y = "Distance (m)", fill = "")
+
+show_plot
+
+```
+

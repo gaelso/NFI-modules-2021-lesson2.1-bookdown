@@ -1,0 +1,32 @@
+bookdown::gitbook:
+  split_bib: FALSE
+  css: style.css
+  pandoc_args: ["--lua-filter=lua-pagebreak-color.lua"]
+  config:
+    toc:
+      before: |
+        <li><a href="./index.html"><b>NFI module 9 lesson 1</b></a></li>
+#      after: |
+#        <li><a href="http://www.globallometree.org/" target="blank"><b>More on GlobAllomeTree</b></a></li>
+#        <li><a href="https://github.com/rstudio/bookdown" target="blank"><i>Published with bookdown</i></a></li>
+    search:
+      engine: fuse
+    edit: null
+    download: null
+    sharing: no
+    info: no
+  #split_by: section+number
+
+bookdown::pdf_document2:
+  #highlight: tango
+  includes:
+    in_header: tex_preamble.tex
+#    before_body: tex_before_body.tex
+#    after_body: tex_after_body.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  toc: false
+  keep_tex: yes
+  pandoc_args: ["--lua-filter=lua-pagebreak-color.lua"]
+
+    

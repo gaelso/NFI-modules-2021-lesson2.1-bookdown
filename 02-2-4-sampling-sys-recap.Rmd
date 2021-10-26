@@ -1,0 +1,15 @@
+
+
+### Recap {-}
+
+Based on the preliminary inventory and few R skills, we have now identified a good sampling grid. To recap the process was:
+
+1. We used the **preliminary forest inventory** results to calculate a an hypothetical number of samples required for a desired precision of 5, 10, 15 or 20%.
+1. Based on our available budget we have identified a suitable range of **sampling sizes**.
+1. We have then created different **sampling grids** to ```r newland_name``` and estimated how many plots would fall on forest land.
+1. We have selected the most adequate sampling grid based on our **budget/precision trade-off**.
+
+
+<txt-green> Now let's see how the same amount of sampling points would be distributed with a random sampling or with an uneven systematic sampling.</txt-green>
+
+\  

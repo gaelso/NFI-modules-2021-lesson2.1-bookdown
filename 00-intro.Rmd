@@ -1,0 +1,42 @@
+
+\newpage
+
+# Introduction {-}
+
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
+
+<txt-green>Welcome to the second lesson</txt-green> of the NFI technical module 9: Practice.
+
+This interactive module is designed to complement the NFI training modules [LINK] with practical hands-on exercises on a fictional island that just emerged in the middle of the Atlantic Ocean: Louland. 
+The lesson 2 focuses on several simple sampling methods that we will apply to ```r newland_name```. As we have seen in the technical modules, NFI are multi-purposes but the sampling design requires that we focus on one main variable of interest. In this lesson 2, the main variable of interest is the forest <txt-green>mean aboveground biomass</txt-green> and we will limit ourselves to random and systematic sampling. We will obtain aboveground biomass estimates for each forest type through post-stratification. 
+::::::{.infobox data-latex=""}
+
+If you have not completed the lesson 1: *Overview of the preliminary data*, we encourage you to start there. Lesson 1 provides a small overview of ```r newland_name``` and sets how you will interact with R consoles embedded in this document.
+
+::::::
+
+The lesson 2 is divided in two parts:
+
+1. Sampling design
+1. Data analysis
+
+We will now start the part 1. We will develop a <txt-green>sampling design</txt-green> for estimating the mean carbon stock in ton/ha of ```r newland_name```'s forests. The objectives of the part 1 are:
+
+- Estimate a number of random samples based on a precision/cost trade-off (cost being simplified to the number of plots that we can afford for now),
+- Find a sampling grid size for a systematic sampling closest to the estimated number of samples. 
+- Create a simple random sampling and an uneven systematic sampling with the same number of plots.
+- Compare the distribution of plots per forest category for these three type of simple sampling designs.
+
+
+::::::{.infobox data-latex=""}
+
+Please note that nowadays most countries do not use these sampling design methods due to several inconveniences. In particular these designs have an inherent risk of missing key forest types or forests most at risk of deforestation (See module 3 on Sampling for more information).
+
+However, since the maths for the estimations resulting from these sampling methods are fairly simple, they constitute a good entry point to sampling and we will start from there. More advanced sampling design methods for NFI, i.e stratified and ratio estimators are the focus of other interactive lessons.
+
+::::::
+
+<txt-green>Let's get started!</txt-green>
+
+
+

@@ -1,0 +1,129 @@
+
+
+
+### The 3 km grid {-}
+
+**You turn! Prepare `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 km grid.** 
+
+Create directly:
+
+- Points with the option `what = "center"`, this time the `cellsize` argument will be 3000 m.
+
+```{r points3-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+sf_points3 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+```{r points3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+sf_points3 <- st_make_grid(sf_lc, cellsize = c(3000, 3000), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+
+- Plots by joining the land cover shapefile `sf_lc`.
+
+```{r plot3-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+sf_plot3 <- sf_points3 %>%
+  st_join(___) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+```{r plot3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+sf_plot3 <- sf_points3 %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+\  
+
+- A map with the plots over the land cover (remember we have a custom color palette `pal` for ```r newland_name``` land covers).
+
+```{r ggplot3-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+ggplot() +
+  geom_sf(data = ___, aes(fill = lc), color = NA) +
+  geom_sf(data = ___, aes(fill = lc), shape = 21) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+```{r ggplot3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot3, aes(fill = lc), shape = 21) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+\  
+
+- Calculations of the number of plots per land cover class.
+
+```{r nplot3-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+nplot3 <- ___ %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = ___)
+nplot3 
+
+```
+
+```{r nplot3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+nplot3 <- sf_plot3 %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot3 
+
+```
+
+
+- And the total number of plot in forests.
+
+```{r nplot3tot-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+nplot3_total <- ___ %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(___)
+nplot3_total
+
+```
+
+```{r nplot3tot-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+nplot3_total <- nplot3 %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(n = sum(n))
+nplot3_total
+
+```
+
+\  
+
+Good job! The 3 km grid looks like exactly what we need. Let's still design a 2 km grid to see if we could afford it.
+
+\  

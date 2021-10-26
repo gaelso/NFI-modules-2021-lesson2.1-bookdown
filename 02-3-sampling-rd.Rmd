@@ -1,0 +1,114 @@
+
+## Random Sampling
+
+Complete random sampling designs have a number of disadvantages and are generally not recommended at national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs and demonstrate their pros and cons. 
+
+The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will uise `set.seed(36)` but feel free to change or remove the function in the practice below.
+
+```{r simp-sample, echo=T}
+
+set.seed(10)
+sf_points_rd <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
+  st_as_sf()
+
+```
+
+\  
+
+We can then extract the land cover at the plots' location...
+
+```{r simp-extract, echo=T}
+
+sf_plot_rd <- sf_points_rd %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+... And map them.
+
+```{r simp-map, echo=T}
+
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot_rd, aes(fill = lc), shape = 21) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+\  
+
+If at a first glance the plot distribution shows a decent coverage of the new land, the interesting part is the calculation of the number of ploot pooer land cover category.
+
+```{r simp_nplot, echo=T}
+
+## Empty console
+nplot_rd <- sf_plot_rd %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot_rd
+
+```
+
+\  
+
+**Practice time! in the console windows below, test different seed numbers and visualize the results.**
+
+- Create the points:
+
+```{r prac-sample, echo=T, class.source="Rchunk", class.output="Rout"}
+
+## Guided
+set.seed(36)
+sf_points_practice <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
+  st_as_sf()
+
+```
+
+- Add the land cover information:
+
+```{r prac-extract, echo=T, class.source="Rchunk", class.output="Rout"}
+
+## Guided
+sf_plot_practice <- sf_points_practice %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+
+\  
+
+- Show the plot locations on a map:
+
+```{r prac-map, echo=T, class.source="Rchunk", class.output="Rout"}
+
+## Guided
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot_practice, aes(fill = lc), shape = 21) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+- Calculate the number of plots per land cover type:
+
+```{r prac_nplot, echo=T, class.source="Rchunk", class.output="Rout"}
+
+## Empty console
+nplot_practice <- sf_plot_practice %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot_practice
+
+```
+
+\  

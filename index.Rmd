@@ -1,0 +1,116 @@
+---
+title: "NFI technical module 9: Practice"
+subtitle: |
+  | Lesson 2: Simple sampling for carbon
+  | Part 1: Sampling design 
+author: ""
+date: "Handbook with solutions - Version 1.0 - October 2021"
+subject: "copyright to be defined"
+keywords: "national forest inventory, biomass, sampling design, statistical sampling, allometric equations, wood density, data analysis"
+documentclass: article
+fontsize: 12pt
+classoption: a4paper
+geometry: margin=2cm
+link-citations: yes
+#bibliography: [bib-jourabbr.bib, bib-trouves.bib, bib-recherch.bib, bib-rstudio.bib, bib-packages.bib]
+site: bookdown::bookdown_site
+biblio-style: bib-faouk.bst
+urlcolor: blue
+citecolor: blue
+linkcolor: RoyalBlue
+filecolor: RoyalBlue
+hyperrefoptions: 
+- pagebackref
+---
+
+```{r init, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+book_format <- knitr::opts_knit$get('rmarkdown.pandoc.to')
+
+if (book_format %in% c("html", "latex")) {
+  library(kableExtra)
+  knitr::opts_chunk$set(fig.align='center', out.width='80%', comment = "")
+  if (book_format == "latex") {
+    knitr::opts_chunk$set(fig.pos="H")
+  } else {
+    #knitr::opts_chunk$set(fig.align='center', out.width='60%')
+    knitr::opts_chunk$set(class.output="Rout-demo") ## class.source="Rchunk"
+  }
+}
+
+# automatically create a bib database for R packages
+#knitr::write_bib(c(.packages(), 'bookdown', 'knitr', 'rmarkdown'), 'bib-packages.bib')
+
+
+```
+
+
+<!-- ADD COVER PAGE TO HTML OUTPUT -->
+<!-- `r if (book_format == "html") ' -->
+# Cover page {-}
+<!-- '` -->
+
+
+
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
+
+\  
+
+```{r img-cover, echo=F, out.width='50%', fig.asp=0.5, fig.align='center', fig.pos = 'H'}
+
+gr_grid10
+
+```
+
+\  
+
+\  
+
+\  
+
+\newpage
+
+
+**NFI technical module 9: Practice**
+**Lesson 2: Simple sampling for carbon**
+**Part 1: Sampling design**
+
+\  
+
+*ADD Authors*
+ FAO, Göttingen
+
+\  
+
+*ADD Recommended citation*
+Authors, Interactive training modules on National Forest Inventory data analysis - handbook with solutions, Food and Agricultural Organization of the United Nations, Rome.
+
+\  
+
+*ADD Disclaimer*
+
+\ 
+
+*ADD license*
+
+*Recommendation: CC NC SA 4 for the book, MIT for the code, Underlying data `r ifelse(book_format == "latex", "\\copyright\\ ", "&copy; ")`FAO, 2021.*
+
+\ 
+
+*ADD Photo credit*
+
+
+
+
+\newpage
+
+
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+

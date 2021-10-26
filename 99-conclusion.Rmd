@@ -1,0 +1,69 @@
+
+\newpage
+
+# Conclusion {-}
+
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
+
+This is the end of the lesson 1. In the next lessons, we use these preliminary data to design different sampling frames and analyze tree and plot data. We will use this data to estimate several NFI main variables, such as carbon, biodiversity or production indicators.
+
+Before moving on with the <txt-green>sampling designs</txt-green> and other lessons in this practice module, here is a dynamic view of ```r newland_name``` and the first 10 forest inventory plots.
+
+```{r tmap1, echo=F, fig.cap="Land cover and first inventory plot locations."}
+
+if (book_format == "html"){
+  
+  tmap_mode("view")
+  
+  tm_shape(sf_lc) + tm_polygons(col = "lc", 
+                                title = "Land cover",
+                                palette = pal, 
+                                popup.vars = c("lc", "id"), border.alpha = 0) +
+  tm_shape(sf_exfi) + tm_dots(col = "plot_agb", title = "AGB (t/ha)", size = 0.1)
+  
+} else {
+  
+  gr_map <- ggplot() +
+    geom_sf(data = sf_lc, aes(fill = lc), col= NA) +
+    scale_fill_manual(values = pal) +
+    geom_sf(data = sf_admin, fill = NA, size = 0.6, color = "black") +
+    geom_sf(data = sf_exfi, aes(color = plot_agb)) +
+    scale_color_viridis_c() +
+    theme_bw() +
+    theme(
+      panel.background = element_rect(fill = "#73c2fb"),
+      text = element_text(family = "LoraIt")
+    ) +
+    labs(fill = "", color = "AGB (ton/ha)") +
+    coord_sf(xlim = c(-20.5, -19.5), ylim = c(-0.8, 0.2), expand = FALSE, crs = st_crs(4326)) +
+    ggspatial::annotation_scale(
+      location = "tr",
+      bar_cols = c("grey60", "white"),
+      text_family = "LoraIt"
+    ) +
+    ggspatial::annotation_north_arrow(
+      location = "tr", 
+      which_north = "true",
+      pad_x = unit(0.2, "in"), 
+      pad_y = unit(0.3, "in"),
+      style = ggspatial::north_arrow_nautical(
+        fill = c("grey40", "white"),
+        line_col = "grey20",
+        text_family = "LoraIt"
+      )
+    )
+  
+  gr_map
+    
+}
+
+
+
+
+
+
+```
+
+
+<!-- End of lesson 1 intro to Newland -->
+

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Space+Mono:400,400i,700,700i|Noto+Serif:400,400i,700,700i|Lora:400,400i,700,700i');
+
+
+/* Style text, sections headers and title*/
+.book .book-body .page-wrapper .page-inner {
+  max-width: 80%;
+}
+
+.book.font-family-0 {
+  font-family: 'Noto Serif', serif;
+}
+
+.book.font-family-1 {
+  font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
+}
+
+.title {
+  font-family: 'Lora' !important;
+  font-style: italic !important;
+  font-weight: normal !important;
+  font-size: 2em !important;
+}
+
+.subtitle {
+  font-family: 'Lora' !important;
+  font-style: italic !important;
+  font-weight: bold !important;
+  font-size: 2.4em !important;
+}
+
+.date {
+  font-family: 'Lora' !important;
+}
+
+h1, h2, h3 {
+  color: #31708e;
+  font-size: 1.6rem;
+}
+
+code, pre, samp, sourceCode {
+  font-family: 'Space Mono', monospace, !important;
+  /*font-size: 1.6em;*/
+}
+
+.author, .date {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1.6em;
+}
+
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+p code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+  line-height: normal;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+}
+
+pre code {
+  white-space: inherit;
+}
+
+/* Style for watermark oand boxes*/
+.watermark {
+  opacity: 0.3;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font-size: 600%;
+  color: #606099;
+  z-index: 1000000;
+}
+
+.infobox {
+  padding: 1em;
+  border: 2px solid #8fc1e3;
+  border-radius: 10px;
+  background-color: #cce5ff;
+  margin-bottom: 1.2em;
+  margin-top: 1.2em;
+}
+
+
+.question {
+  padding: 1em;
+  border: 2px solid #ffeeba;
+  border-radius: 10px;
+  background-color: #fff3cd;
+  margin-bottom: 1.2em;
+  margin-top: 1.2em;
+  color: #856404;
+}
+
+txt-green{
+  color: #1f6521;
+  font-weight: bold;
+}
+
+/*Style for R chunks*/
+.Rchunk-cons {
+  color: #8a6d3b !important;
+  background-color: #fff3cd !important;
+  border-color: #ffeeba !important;
+}
+
+.Rchunk-sol {
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+}
+
+/*Style for R outputs*/
+.Rout-demo {
+  background-color: #ffffff !important;
+  font-weight: bold;
+  color: #012172 !important;
+}
+
+.Rout-sol {
+  background-color: #ffffff !important;
+  font-weight: bold;
+  color: #012172 !important;
+  border: 1px solid #8ee4af !important;
+  border-radius: 4px !important;
+}
+

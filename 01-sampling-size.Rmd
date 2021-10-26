@@ -1,0 +1,101 @@
+
+# Sampling size
+  
+
+Remember in the NFI module lesson 3, the formula to estimate the **sampling size `n`**, based on Simple Random Sample (SRS), is:
+
+$$n = \left(\frac{CV \cdot t^{1 - \alpha/2}_{n-1}}{A}\right)^2 \sim \left(\frac{CV \cdot 1.96}{A}\right)^2$$
+with:
+
+- $CV = s / \overline{y} \times 100$ the NFI main variable coefficient of variation expressed as percentage, 
+- $s$ and $\overline{y}$ the samples main variable's standard deviation and average respectively,
+- $A$ the desired precision in percentage, and 
+- $t^{1 - \alpha/2}_{n-1}$ the Student's t-value with $n-1$ degrees of freedom and $1-\frac{\alpha}{2}$ confidence level where $\alpha$ is the significance level. This value is approximated by the value 1.96 when assuming an infinite sample and 0.95 confidence level.
+
+\  
+
+Thanks to the results of the preliminary forest inventory (`exfi_agb`), we have an estimate of $\overline{y}$ and $s$ for a forest stand in ```r newland_name```. While this stand is most likely not representative of the whole island, we can use it to make an estimate of the number of samples necessary to achieve various target precision values. The final number of plots will depend on the desired precision and your budget constraints. In case of a systematic sampling we can add an additional constraint that we want the NFI grid to be a round km value.
+
+Let's first calculate the number of sample for different precision levels. For a 5% precision, the number of sample is:
+
+```{r n05}
+
+n05 <- ((fi_agb$sd_agb / fi_agb$mean_agb * 100) * 1.96 / 5)^2
+n05
+
+``` 
+
+\  
+
+**Your turn, calculate `n10`, `n15` and `n20`, the number of samples necessary to get respectively 10%, 15% and 20% precision on ```r  newland_name```'s mean aboveground biomass.**
+
+Calculations for 10% here: 
+ 
+```{r n10-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+n10 <- ((fi_agb$sd_agb / fi_agb$mean_agb) * ___ / ___)^2
+n10
+
+```
+
+```{r n10-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+n10 <- ((fi_agb$sd_agb / fi_agb$mean_agb * 100) * 1.96 / 10)^2
+n10
+
+```
+
+\  
+
+Calculations for 15% here: 
+
+```{r n15-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+n15 <- ((___ / ___) * ___ / ___)^2
+n15
+
+```
+
+```{r n15-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+n15 <- ((fi_agb$sd_agb / fi_agb$mean_agb * 100) * 1.96 / 15)^2
+n15
+
+```
+
+\  
+
+Calculations for 20% here: 
+
+```{r n20-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+
+```{r n20-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+n20 <- ((fi_agb$sd_agb / fi_agb$mean_agb * 100) * 1.96 / 20)^2
+n20
+
+```
+
+\  
+
+Well done! **We have enough budget for around 500 plots**. What is the best range of precision we can afford?
+
+::::::{.question data-latex=""}
+
+*Multiple choices*
+
+1. **5% - 10%**
+1. 10% - 15%
+1. 15% - 20%
+
+::::::
+
+\  

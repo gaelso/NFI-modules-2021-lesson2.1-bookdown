@@ -1,0 +1,114 @@
+
+%% Set font sf
+%\renewcommand{\familydefault}{\sfdefault}
+
+%% Original preamble from Yihui
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{makecell}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+
+%% This is for landscape tables
+\usepackage{longtable}
+\usepackage{pdflscape}
+
+%% This is for multirow tables
+\usepackage{multirow}
+
+
+%% Stop make title from placing YAML title before the cover page
+% \let\oldmaketitle\maketitle
+% \AtBeginDocument{\let\maketitle\relax}
+
+%% Box 
+\usepackage[breakable, skins]{tcolorbox}
+\definecolor{bgcolor}{RGB}{255,255,255}
+\definecolor{infoboxcolor}{RGB}{143,193,227}
+\definecolor{questioncolor}{RGB}{55, 150, 131}
+\newtcolorbox{infobox}{
+  breakable,
+  enhanced,
+  colback=bgcolor,
+  opacityback=50,
+  colframe=infoboxcolor,
+  %coltext=white,
+  boxsep=5pt,
+  arc=4pt}
+  
+\newtcolorbox{question}{
+  breakable,
+  enhanced,
+  colback=bgcolor,
+  opacityback=50,
+  colframe=questioncolor,
+  %coltext=white,
+  boxsep=5pt,
+  arc=4pt}
+  
+  
+%% Draft watermark
+\usepackage{eso-pic}
+\definecolor{draftcolor}{rgb}{0.5,0.5,0.5}
+\AddToShipoutPictureFG{%
+\begin{tikzpicture}[overlay,remember picture]
+\path (current page.south west) -- (current page.north east)
+ node[midway, scale=10, sloped, opacity=0.5, color=draftcolor] {DRAFT};
+\end{tikzpicture}
+}
+
+%% sub figures
+\usepackage{subfig}
+
+%% Italic caption text
+\usepackage[labelsep=endash,textfont=sl]{caption}
+
+
+%% Modify the r chunk style in pdf/Tex to mimic pygment in html + added automatic breaks when R outputs are longer than the page size
+\usepackage{xcolor}
+\usepackage{fvextra} %% Required fro breakline and breakanywhere
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{commandchars=\\\{\}, fontsize=\small, formatcom=\color[RGB]{239,130,13}, breaklines=true, breakanywhere=true}
+\usepackage{framed}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}, fontsize=\small}
+\definecolor{shadecolor}{RGB}{247,247,247}
+\makeatletter
+\@ifundefined{Shaded}{
+}{\renewenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\renewcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\renewcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\renewcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\renewcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\renewcommand{\BuiltInTok}[1]{#1}
+\renewcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\renewcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\renewcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\renewcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\renewcommand{\DataTypeTok}[1]{\textcolor[RGB]{144,32,0}{#1}}
+\renewcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\renewcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\renewcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\renewcommand{\ExtensionTok}[1]{#1}
+\renewcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\renewcommand{\ImportTok}[1]{#1}
+\renewcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\renewcommand{\KeywordTok}[1]{\textcolor[RGB]{0,112,32}{\textbf{#1}}}
+\renewcommand{\NormalTok}[1]{\textcolor[RGB]{65,131,196}{#1}}
+\renewcommand{\OperatorTok}[1]{\textcolor[RGB]{200,0,0}{\textbf{#1}}}
+\renewcommand{\OtherTok}[1]{\textcolor[RGB]{30, 150, 3}{\textbf{#1}}}
+\renewcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\renewcommand{\RegionMarkerTok}[1]{#1}
+\renewcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\renewcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\renewcommand{\StringTok}[1]{\textcolor[RGB]{8, 68, 128}{#1}}
+\renewcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\renewcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\renewcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+}
+\makeatother
