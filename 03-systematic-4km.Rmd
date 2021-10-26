@@ -1,0 +1,132 @@
+
+\newpage
+
+# Systematic sampling: 4 km grid
+
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
+
+**You turn! Prepare `sf_point4`, `sf_plot4`, `nplot4` and `nplot4_total` for creating a 4 km grid.** 
+
+Create directly:
+
+- Points with the option `what = "center"`, this time the `cellsize` argument will be 4000 m.
+
+```{r points4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+sf_points4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+```{r points4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+sf_points4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+
+- Plots by joining the land cover shapefile `sf_lc`.
+
+```{r plot4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+sf_plot4 <- sf_points4 %>%
+  st_join(___) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+```{r plot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+sf_plot4 <- sf_points4 %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+\  
+
+- A map with the plots over the land cover (remember we have a custom color palette `pal` for ```r newland_name``` land covers).
+
+```{r ggplot4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+ggplot() +
+  geom_sf(data = ___, aes(fill = lc), color = NA) +
+  geom_sf(data = ___, aes(fill = lc), shape = 21) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+```{r ggplot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot4, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_admin, fill = NA) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+\  
+
+- Calculations of the number of plots per land cover class.
+
+```{r nplot4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+nplot4 <- ___ %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = ___)
+nplot4 
+
+```
+
+```{r nplot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+nplot4 <- sf_plot4 %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot3 
+
+```
+
+
+- And the total number of plot in forests.
+
+```{r nplot4tot-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+nplot4_total <- ___ %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(___)
+nplot4_total
+
+```
+
+```{r nplot4tot-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+nplot4_total <- nplot4 %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(n = sum(n))
+nplot4_total
+
+```
+
+\  
+
+Good job! The 4 km grid looks like exactly what we need. Let's still design a 3 km grid to see if we could afford it.
+
+\  

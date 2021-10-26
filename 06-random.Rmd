@@ -1,11 +1,15 @@
 
-## Random Sampling
+\newpage
 
-Complete random sampling designs have a number of disadvantages and are generally not recommended at national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs and demonstrate their pros and cons. 
+# Random Sampling
 
-The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will uise `set.seed(36)` but feel free to change or remove the function in the practice below.
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-```{r simp-sample, echo=T}
+Complete random sampling designs have a number of disadvantages and are generally not recommended at national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs. 
+
+The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove the function in the practice below.
+
+```{r simp-sample}
 
 set.seed(10)
 sf_points_rd <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
@@ -17,7 +21,7 @@ sf_points_rd <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
 
 We can then extract the land cover at the plots' location...
 
-```{r simp-extract, echo=T}
+```{r simp-extract}
 
 sf_plot_rd <- sf_points_rd %>%
   st_join(sf_lc) %>%
@@ -28,11 +32,12 @@ sf_plot_rd <- sf_points_rd %>%
 
 ... And map them.
 
-```{r simp-map, echo=T}
+```{r simp-map}
 
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
   geom_sf(data = sf_plot_rd, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_admin, fill = NA) +
   scale_fill_manual(values = pal) +
   labs(fill = "", color = "") +
   theme_void()
@@ -41,11 +46,10 @@ ggplot() +
 
 \  
 
-If at a first glance the plot distribution shows a decent coverage of the new land, the interesting part is the calculation of the number of ploot pooer land cover category.
+If at a first glance the plot distribution shows a decent coverage of the new land, the interesting part is the calculation of the number of plots per land cover category.
 
-```{r simp_nplot, echo=T}
+```{r simp_nplot}
 
-## Empty console
 nplot_rd <- sf_plot_rd %>%
   as_tibble() %>%
   group_by(lc) %>%
@@ -56,42 +60,69 @@ nplot_rd
 
 \  
 
-**Practice time! in the console windows below, test different seed numbers and visualize the results.**
+**Your turn! In the console below, test different seed numbers and visualize the results.**
 
-- Create the points:
+- Create the points, choose whatever seed number you want:
 
-```{r prac-sample, echo=T, class.source="Rchunk", class.output="Rout"}
+```{r ranpoints-cons, eval=F, class.source="Rchunk-cons"}
 
-## Guided
-set.seed(36)
-sf_points_practice <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
+## Console
+set.seed(___)
+sf_points_rd2 <- st_sample(x = ___, size = ___) %>%
+  st_as_sf()
+
+```
+
+```{r ranpoints-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+set.seed(100)
+sf_points_rd2 <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
   st_as_sf()
 
 ```
 
 - Add the land cover information:
 
-```{r prac-extract, echo=T, class.source="Rchunk", class.output="Rout"}
+```{r ranplot-cons, eval=F, class.source="Rchunk-cons"}
 
-## Guided
-sf_plot_practice <- sf_points_practice %>%
+## Console
+sf_plot_rd2 <- sf_points_rd2 %>%
+  st_join(___) %>%
+  mutate(lc = fct_reorder(lc, ___)) %>%
+  filter(___)
+
+```
+
+```{r ranplot-sol, class.source="Rchunk-sol", Rout="Rout-sol"}
+
+sf_plot_rd2 <- sf_points_rd2 %>%
   st_join(sf_lc) %>%
   mutate(lc = fct_reorder(lc, lc_id)) %>%
   filter(!is.na(lc))
 
 ```
 
-
 \  
 
 - Show the plot locations on a map:
 
-```{r prac-map, echo=T, class.source="Rchunk", class.output="Rout"}
+```{r ranmap-cons, eval=F, class.source="Rchunk-cons"}
 
-## Guided
+## Console
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
-  geom_sf(data = sf_plot_practice, aes(fill = lc), shape = 21) +
+  geom_sf(data = ___, aes(fill = ___), shape = 21) +
+  scale_fill_manual(values = pal) +
+  labs(___, ___) +
+  theme_void()
+
+```
+
+```{r ranmap-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot_rd2, aes(fill = lc), shape = 21) +
   scale_fill_manual(values = pal) +
   labs(fill = "", color = "") +
   theme_void()
@@ -100,15 +131,30 @@ ggplot() +
 
 - Calculate the number of plots per land cover type:
 
-```{r prac_nplot, echo=T, class.source="Rchunk", class.output="Rout"}
+```{r rancount-cons, eval=F, class.source="Rchunk-cons"}
 
-## Empty console
-nplot_practice <- sf_plot_practice %>%
+## Console
+nplot_rd2 <- ___ %>%
+  as_tibble() %>%
+  group_by(___) %>%
+  summarise(n = n())
+nplot_rd2
+
+```
+
+```{r rancount-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+nplot_rd2 <- sf_plot_rd2 %>%
   as_tibble() %>%
   group_by(lc) %>%
   summarise(n = n())
-nplot_practice
+nplot_rd2
 
 ```
 
 \  
+
+Well done! We will keep these results for later and move on with Uneven Systematic Sampling.
+
+\  
+

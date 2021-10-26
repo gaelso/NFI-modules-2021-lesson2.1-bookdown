@@ -1,6 +1,9 @@
 
+\newpage
+
 # Sampling size
   
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
 Remember in the NFI module lesson 3, the formula to estimate the **sampling size `n`**, based on Simple Random Sample (SRS), is:
 
@@ -86,15 +89,16 @@ n20
 
 \  
 
-Well done! **We have enough budget for around 500 plots**. What is the best range of precision we can afford?
+Well done! **We have enough budget for around 300 plots**. What precision can we afford?
 
 ::::::{.question data-latex=""}
 
 *Multiple choices*
 
-1. **5% - 10%**
-1. 10% - 15%
-1. 15% - 20%
+1. 5% 
+1. **10%**
+1. 15%
+1. 20%
 
 ::::::
 

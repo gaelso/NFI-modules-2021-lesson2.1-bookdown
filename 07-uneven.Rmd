@@ -1,6 +1,14 @@
 
 
-## Uneven Systematic Sampling
+# Uneven Systematic Sampling
+
+In the NFI technical module 3 on sampling, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sample is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>. 
+
+An uneven systematic sample starts with the same grid as a systematic sample, but instead of placing plots at the center or corner of the grid, we allocate them randomly inside each square of the grid.
+
+
+
+
 
 *TBD*
 
