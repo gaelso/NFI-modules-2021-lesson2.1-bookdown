@@ -5,9 +5,9 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-Complete random sampling designs have a number of disadvantages and are generally not recommended at national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs. 
+Complete random sampling designs have a number of disadvantages and are generally not recommended at a national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs. 
 
-The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove the function in the practice below.
+The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove at will the chose seed number in the practice below.
 
 ```{r simp-sample}
 
@@ -46,7 +46,7 @@ ggplot() +
 
 \  
 
-If at a first glance the plot distribution shows a decent coverage of the new land, the interesting part is the calculation of the number of plots per land cover category.
+If at a first glance the plot distribution shows a decent coverage of the new land, it is interesting to calculate the number of plots per land cover category.
 
 ```{r simp_nplot}
 
