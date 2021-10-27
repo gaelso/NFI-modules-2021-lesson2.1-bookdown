@@ -237,25 +237,34 @@ display_table() %>%
 ```
 
 
-This illustrate a few elements of sampling design presented in the **NFI eLearning Module 3: Sampling**: the difference between these sampling methods doesn't translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
+This illustrate a few elements of sampling design presented in the **NFI eLearning Module 3: Sampling**: the differences between these sampling methods doesn't translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
 
 ::::::{.question data-latex=""}
 
-In particular, what makes Simple random sampling not suitable for National Forest Inventories:
+Which of the following assertions are true?
 
-1. You have no control over plot distribution.
-1. **There is a higher chance of plot autocorrelation.**
+1. Simple random sampling (SRS) is not suitable because you have no control over plot distribution.
+1. **SRS is less suitable that systematic sampling methods as SRS plots have a higher chance of autocorrelation.**
+1. **Systematic sampling consist of one sample, it only borrows SRS stats because they are considered conservative.**
+1. **Uneven systematic sampling allows to use SRS statistical formulas while plot distributions still has less autocorrelation than SRS.**
 
 ::::::
 
 
-::::::{.question data-latex=""}
+::::::{.infobox data-latex=""}
 
-And what makes uneven systematic sampling better that systematic sampling for National Forest Inventories:
+Actually, a plot distribution proportional to land cover class relative areas is not always desirable. The main goal of sampling optimization is to get the best precision possible with the lowest number of plots to measure.  
 
-1. 
-1. 
+From the sampling size formula for Simple Random Sampling (see section \@ref(size)), it is easy to understand that the the number of plots to measure increases with the variability of our main variable of interest (represented by its coefficient of variation $CV$).
+
+If, for example, a population with a rather high $CV$ could be divided into two sub-populations with each a very low $CV$, we can intuitively understand that a small number of plot in each sub-population could give us a good precision. 
+
+Similarly, if one of the sub-population has a higher $CV$ than the other, and **even if its relative area is smaller comparatively smaller**, allocating a higher number of plots to this sub-population will increase the overall precision.
+
+For example, our simple sampling methods gave sample allocation to land cover classes more or less proportional to their relative areas. It means a very small number of plots in Mangrove forest and a high number of plots in Mixed-Deciduous forest. However the Aboveground biomass $CV$ for Mangrove may very well be much higher than in Mixed-Deciduous forest. In this case, a sampling strategy that would give more plots to Mangrove and less to Mixed-Deciduous forests would increase the overall precision of our Aboveground biomass and be more cost-efficient.
+
+These strategies are called <txt-green>Stratified Sampling</txt-green> and wil be the main topic of another interactive lesson.
+
+For now, we will continue with our best uneven systematic sampling design, based on 4 x 4 km grid.
 
 ::::::
-
-

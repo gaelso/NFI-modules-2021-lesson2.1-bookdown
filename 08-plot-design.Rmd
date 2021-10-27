@@ -2,14 +2,22 @@
 
 # Plot designs
 
-In this version of the interactive module, the plot design is limited to one choice:
+::::::{.infobox data-latex=""}
 
-- circular plot of 20 m radius for all trees with a diameter at breast height bigger than orr equal to 20 cm,
+National Forest inventories of different countries come with various cluster, plot and nested subplots **observation designs**. When using nested plot design, one objective is to measure quite equal number of all sizes of trees, for example by basal area or tree volume classes, and avoid measuring too many small trees. each plot should also capture "enough trees". 
+
+With additional preliminary information such as permanent sampling plots, or other forest inventories with large plots, we can optimize the observation design for various forest conditions.
+
+::::::
+
+In this lesson, we will not dive into observation design optimization, the plot design is limited to one choice:
+
+- circular plot of 20 m radius for all trees with a diameter at breast height bigger than or equal to 20 cm,
 - nested circular plot of 5 m radius for trees with a diameter at breast height bigger than or equal to 10 cm and smaller than 20 cm.
 
-Let's see for example all the trees measured in one plot: `"ev-ywt8"`.
+Let's see for example all the trees measured in one plot: `"md-zzb5"` (Figure \@ref(fig:ex-plot)).
 
-```{r}
+```{r ex-plot, echo=F, fig.cap="Observation design for this lesson with plot 'md-zzb5'as example."}
 
 nb_tree <- tree %>%
   group_by(plot_id) %>%
@@ -17,7 +25,7 @@ nb_tree <- tree %>%
   filter(count >= max(count) - 30)
 
 show_plot <- tree %>%
-  filter(plot_id == "ev-ywt8") %>%
+  filter(plot_id == "md-zzb5") %>%
   mutate(angle = pi - pi / 180 * tree_azimuth) %>%
   ggplot(aes(x = angle, y = tree_dist)) +
   geom_point(aes(size = tree_dbh, fill = tree_azimuth), shape = 21) +
@@ -27,13 +35,13 @@ show_plot <- tree %>%
     breaks = c(-2:2) * pi/2,
     labels = c("360", "270", "180", "90", "0")
   ) +
-  scale_fill_viridis_c() +
+  scale_fill_viridis_c(direction = -1) +
   coord_polar(theta = "x", start = 0, direction = -1) +
   geom_hline(aes(yintercept = plot_radius), col = "darkred") +
   geom_hline(aes(yintercept = subplot_radius), col = "darkred") +
   theme_bw() +
   ylim(0, 20) +
-  labs(x = "", y = "Distance (m)", fill = "")
+  labs(x = "", y = "Distance (m)", fill = "Azimuth (degree)")
 
 show_plot
 
