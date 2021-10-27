@@ -1,16 +1,14 @@
-
-
 # Uneven Systematic Sampling {uneven}
 
-In the NFI technical module 3 on sampling, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sample is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>. 
+In the NFI technical module 3 on sampling, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sample is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>.
 
-An uneven systematic sample starts with the same grid as a systematic sample, but instead of placing plots at the center or corner of the grid, we allocate them randomly inside each square of the grid. 
+An uneven systematic sample starts with the same grid as a systematic sample, but instead of placing plots at the center or corner of the grid, we allocate them randomly inside each square of the grid.
 
-\  
+ 
 
 ## Demo {-}
 
-We will demonstrate the R commands for the 5 x 5 km grid and let you practice with the 4 x 4 km grid that we have selected for ```r newland_name```'s NFI. For making random points within a grid, we will use the function `st_sample()`, but this time we will apply it to the grid polygons and the size of the sample is 1 but repeated for each points in the grid.
+We will demonstrate the R commands for the 5 x 5 km grid and let you practice with the 4 x 4 km grid that we have selected for `r newland_name`'s NFI. For making random points within a grid, we will use the function `st_sample()`, but this time we will apply it to the grid polygons and the size of the sample is 1 but repeated for each points in the grid.
 
 ```{r uneven5}
 
@@ -47,9 +45,11 @@ ggplot() +
 ```
 
 
+## Create uneven systemic sampling for the 4 x 4 km grid {-}
+
 **Your turn! Create an uneven systematic sample based on the 4 x 4 km grid.**
 
-- First you need to create the 4 x 4 km grid. Have a look at the section \@ref{sysdemo} for code block if you don't remember the function inputs, and adpat it to the 4 x 4 km grid.
+-   First you need to create the 4 x 4 km grid. Have a look at the section \@ref{sysdemo} for code block if you don't remember the function inputs, and adpat it to the 4 x 4 km grid.
 
 ```{r grid4-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -66,8 +66,7 @@ sf_grid4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "polygons", off
 
 ```
 
-
-- Create the points. We have just created the grids canvas `sf_grid4` and we have already created the grid points `sf_points4` in the section \@ref(sys4). Keep the seed 10 to have comparable results with all the users of this lesson. 
+-   Create the points. We have just created the grids canvas `sf_grid4` and we have already created the grid points `sf_points4` in the section \@ref(sys4). Keep the seed 10 to have comparable results with all the users of this lesson.
 
 NB: This operation is calculation intensive and may take a few minutes to complete.
 
@@ -88,7 +87,7 @@ sf_points4_uneven <- st_sample(x = sf_grid4, size = rep(1, nrow(sf_points4))) %>
 
 ```
 
-- Add the land cover information:
+-   Add the land cover information:
 
 ```{r unevenplot-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -109,9 +108,9 @@ sf_plot4_uneven <- sf_points4_uneven %>%
 
 ```
 
-\  
+ 
 
-- Show the plot locations on a map with a `ggplot()`:
+-   Show the plot locations on a map with a `ggplot()`:
 
 ```{r unevenmap-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -148,9 +147,9 @@ ggplot() +
 
 ```
 
-\  
+ 
 
-- Calculate the number of plots per land cover type:
+-   Calculate the number of plots per land cover type:
 
 ```{r unevencount-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -158,7 +157,6 @@ ggplot() +
 ##
 
 ```
-
 
 ```{r unevencount-cons2, eval=F, class.source="Rchunk-cons"}
 
@@ -182,31 +180,82 @@ nplot4_uneven
 
 ```
 
-\  
-
+ 
 Well done! We have one of the best possible simple sampling design, combining strengths of both systematic and random sampling.
 
+\  
 
-```{r, echo=F}
+## Proportion of plots per forested land cover {-}
+
+Let's compare how many plots fell in each land cover class of `r newland_name` (Table \@ref(tab:compa)). We can see that our three simple sampling methods gave similar plot allocation per land cover with plus or minus 3 points between their proportion and the area proportion of the land cover classes. 
+
+
+```{r compa, echo=F}
 
 simple_res <- area_lc %>%
+  mutate(area_kha = round(as.numeric(area_ha) /1000, 2)) %>%
+  select(-area_ha) %>%
   left_join(nplot4 %>% rename(n_sys4 = n), by = "lc") %>%
   left_join(nplot_rd %>% rename(n_rd = n), by = "lc") %>%
-  left_join(nplot4_uneven %>% rename(n_uneven4 = n), by = "lc") 
+  left_join(nplot4_uneven %>% rename(n_un4 = n), by = "lc") %>%
+  mutate(n_rd = replace_na(n_rd, 0)) %>%
+  filter(lc %in% c("EV", "MD", "DD", "WL", "MG"))
 
 simple_tot <- simple_res %>%
-  summarise(across(where(is.numeric), ~ sum(., na.rm = TRUE))) %>%
+  summarise(across(where(is.numeric), sum)) %>%
   mutate(lc = "Total") %>% 
   select(lc, everything())
   
-simple_perc <- simple_res %>%
+kab <- simple_res %>%
   mutate(
-    area_p = area_ha / simple_tot$area_ha,
-    
+    p_area = as.numeric(round(area_kha / simple_tot$area_kha * 100)),
+    p_sys4 = round(n_sys4 / simple_tot$n_sys4 * 100),
+    p_rd   = round(n_rd / simple_tot$n_rd * 100),
+    p_un4  = round(n_un4 / simple_tot$n_un4 * 100)
+  ) %>%
+  bind_rows(simple_tot %>% mutate(p_area = 100, p_sys4 = 100, p_rd = 100, p_un4 = 100)) %>%
+  select(lc, area_kha, p_area, n_sys4, p_sys4, n_rd, p_rd, n_un4, p_un4)
+
+kab_opt <- list(
+  x = kab,
+  caption = "Area and percentage of plots in each forest land cover.",
+  col.names = c("Land cover", "Area", "perc.",  rep(c("# plots", "perc."), 3)),
+  #align = "ccccccccccccc",
+  booktabs = TRUE,
+  escape = F
   )
 
-  
+display_table() %>%
+  add_header_above(c(
+    " " = 1,
+    "Area (kha)" = 2, 
+    "Systematic sampling" = 2, 
+    "Random sampling" = 2,
+    "Uneven systematic sampling" = 2
+  ))
 
 ```
-\  
+
+
+This illustrate a few elements of sampling design presented in the **NFI eLearning Module 3: Sampling**: the difference between these sampling methods doesn't translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
+
+::::::{.question data-latex=""}
+
+In particular, what makes Simple random sampling not suitable for National Forest Inventories:
+
+1. You have no control over plot distribution.
+1. **There is a higher chance of plot autocorrelation.**
+
+::::::
+
+
+::::::{.question data-latex=""}
+
+And what makes uneven systematic sampling better that systematic sampling for National Forest Inventories:
+
+1. 
+1. 
+
+::::::
+
 
