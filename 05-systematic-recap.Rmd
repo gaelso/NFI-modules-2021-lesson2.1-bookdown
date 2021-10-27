@@ -1,7 +1,7 @@
 
 \nnewpage
 
-# Systematic sampling: Recap
+# Systematic sampling: Recap {sysrecap}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 

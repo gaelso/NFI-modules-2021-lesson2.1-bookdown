@@ -1,6 +1,6 @@
 
 
-## Plot designs
+# Plot designs
 
 In this version of the interactive module, the plot design is limited to one choice:
 

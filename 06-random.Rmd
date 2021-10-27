@@ -1,18 +1,47 @@
 
 \newpage
 
-# Random Sampling
+# Random Sampling {ran}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
 Complete random sampling designs have a number of disadvantages and are generally not recommended at a national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs. 
 
+
+## Demo {-}
+
 The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove at will the chose seed number in the practice below.
+
+\  
+
+::::::{.infobox data-latex=""}
+
+As the plot locations are completely random, we have no control over how many plots are going to land on forest versus non-forest land. We can apply two possible strategies to reach our target number of plots:
+
+1. We filter out non-forest polygons and make the sample size equal to the total number of plots in forest lands from our 4 x 4 km sampling grid `nplot4_total$n`.
+1. We make the sampling size equal to the original number of points in a 4 x 4 km grid `nrow(sf_points4)`
+
+We can anticipate that the second solution is better if you are also interested in non-forest land, although this is no guarantee you will have enough plots in each land cover. We will favor option 1 as our primary target is forest carbon stock.
+
+As `sf` objects behave similarly to tibbles, the tidyverse function `filter()` will allow us to prepare a forest only shapefile.
+
+```{r forest}
+
+sf_forest <- sf_lc %>%
+  filter(lc %in% c("EV", "MD", "DD", "WL", "MG"))
+
+```
+
+::::::
+
+\  
+
+We can now create the random points based on the `sf_forest` canvas.
 
 ```{r simp-sample}
 
 set.seed(10)
-sf_points_rd <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
+sf_points_rd <- st_sample(x = sf_forest, size = nplot4_total$n) %>%
   st_as_sf()
 
 ```
@@ -59,6 +88,8 @@ nplot_rd
 ```
 
 \  
+
+## Practice {-}
 
 **Your turn! In the console below, test different seed numbers and visualize the results.**
 
@@ -112,6 +143,7 @@ sf_plot_rd2 <- sf_points_rd2 %>%
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
   geom_sf(data = ___, aes(fill = ___), shape = 21) +
+  geom_sf(data = sf_admin, fill = NA) +
   scale_fill_manual(values = pal) +
   labs(___, ___) +
   theme_void()
@@ -123,6 +155,7 @@ ggplot() +
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
   geom_sf(data = sf_plot_rd2, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_admin, fill = NA) +
   scale_fill_manual(values = pal) +
   labs(fill = "", color = "") +
   theme_void()

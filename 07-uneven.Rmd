@@ -1,17 +1,21 @@
 
 
-# Uneven Systematic Sampling
+# Uneven Systematic Sampling {uneven}
 
 In the NFI technical module 3 on sampling, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sample is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>. 
 
 An uneven systematic sample starts with the same grid as a systematic sample, but instead of placing plots at the center or corner of the grid, we allocate them randomly inside each square of the grid. 
 
-We will demonstrate the command for the 5 x 5 km grid and let you practice with the 4 x 4 km grid that we have selected for ```r newland_name```'s NFI. For making random points within a grid, we will use the function `st_sample()`, but this time we will apply it to the grid polygons and the size of the sample is 1 but repeated for each points in the grid.
+\  
+
+## Demo {-}
+
+We will demonstrate the R commands for the 5 x 5 km grid and let you practice with the 4 x 4 km grid that we have selected for ```r newland_name```'s NFI. For making random points within a grid, we will use the function `st_sample()`, but this time we will apply it to the grid polygons and the size of the sample is 1 but repeated for each points in the grid.
 
 ```{r uneven5}
 
 set.seed(10)
-sf_points_uneven <- st_sample(x = sf_grid5, size = rep(1, nrow(as_tibble(sf_points5))))
+sf_points_uneven <- st_sample(x = sf_grid5, size = rep(1, nrow(sf_points5)))
 
 ```
 
@@ -33,8 +37,8 @@ Then a quick map is always a good idea to see if everything looks at it should. 
 
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
-  geom_sf(data = sf_plot_uneven, aes(fill = lc), shape = 21) +
   geom_sf(data = sf_grid5, fill = NA, col = "red") +
+  geom_sf(data = sf_plot_uneven, aes(fill = lc), shape = 21) +
   geom_sf(data = sf_admin, fill = NA) +
   scale_fill_manual(values = pal) +
   labs(fill = "", color = "") +
@@ -43,9 +47,9 @@ ggplot() +
 ```
 
 
-**Your turn! Create uneven systematic samples based on the 4 x 4 km grid.**
+**Your turn! Create an uneven systematic sample based on the 4 x 4 km grid.**
 
-- First you need to create the 4 x 4 km grid. Have a look at the section 2 for code block if you don't remember the function inputs.
+- First you need to create the 4 x 4 km grid. Have a look at the section \@ref{sysdemo} for code block if you don't remember the function inputs, and adpat it to the 4 x 4 km grid.
 
 ```{r grid4-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -57,29 +61,29 @@ sf_grid4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = ___, offset = off
 
 ```{r grid4-sol, class.source="Rchunk-sol", Rout = "Rout-sol"}
 
-sf_grid4 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "polygons", offset = offset) %>%
+sf_grid4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "polygons", offset = offset) %>%
   st_intersection(sf_admin)
 
 ```
 
 
-**TBD**
+- Create the points. We have just created the grids canvas `sf_grid4` and we have already created the grid points `sf_points4` in the section \@ref(sys4). Keep the seed 10 to have comparable results with all the users of this lesson. 
 
-- Create the points, choose whatever seed number you want:
+NB: This operation is calculation intensive and may take a few minutes to complete.
 
 ```{r unevenpoints-cons, eval=F, class.source="Rchunk-cons"}
 
 ## Console
 set.seed(10)
-sf_points_rd2 <- st_sample(x = ___, size = ___) %>%
+sf_points4_uneven <- st_sample(x = ___, size = ___) %>%
   st_as_sf()
 
 ```
 
 ```{r unevenpoints-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
-set.seed(100)
-sf_points_rd2 <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
+set.seed(10)
+sf_points4_uneven <- st_sample(x = sf_grid4, size = rep(1, nrow(sf_points4))) %>%
   st_as_sf()
 
 ```
@@ -89,16 +93,16 @@ sf_points_rd2 <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
 ```{r unevenplot-cons, eval=F, class.source="Rchunk-cons"}
 
 ## Console
-sf_plot_rd2 <- sf_points_rd2 %>%
-  st_join(___) %>%
-  mutate(lc = fct_reorder(lc, ___)) %>%
-  filter(___)
+sf_plot4_uneven <- ___ %>%
+  ___(___) %>%
+  ___(lc = fct_reorder(lc, ___)) %>%
+  ___(___)
 
 ```
 
 ```{r unevenplot-sol, class.source="Rchunk-sol", Rout="Rout-sol"}
 
-sf_plot_rd2 <- sf_points_rd2 %>%
+sf_plot4_uneven <- sf_points4_uneven %>%
   st_join(sf_lc) %>%
   mutate(lc = fct_reorder(lc, lc_id)) %>%
   filter(!is.na(lc))
@@ -107,57 +111,102 @@ sf_plot_rd2 <- sf_points_rd2 %>%
 
 \  
 
-- Show the plot locations on a map:
+- Show the plot locations on a map with a `ggplot()`:
 
 ```{r unevenmap-cons, eval=F, class.source="Rchunk-cons"}
 
 ## Console
+##
+
+```
+
+```{r unevenmap-cons2, eval=F, class.source="Rchunk-cons"}
+
+## Tip
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
-  geom_sf(data = ___, aes(fill = ___), shape = 21) +
-  scale_fill_manual(values = pal) +
-  labs(___, ___) +
+  geom_sf(data = ___, fill = NA, col = "red") +
+  geom_sf(data = ___, aes(fill = lc), shape = 21) +
+  geom_sf(data = ___, fill = NA) +
+  scale_fill_manual(values = ___) +
+  ___(fill = "", color = "") +
   theme_void()
 
 ```
 
 ```{r unevenmap-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
-  geom_sf(data = sf_plot_rd2, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_grid4, fill = NA, col = "red") +
+  geom_sf(data = sf_plot4_uneven, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_admin, fill = NA) +
   scale_fill_manual(values = pal) +
   labs(fill = "", color = "") +
   theme_void()
 
 ```
 
+\  
+
 - Calculate the number of plots per land cover type:
 
 ```{r unevencount-cons, eval=F, class.source="Rchunk-cons"}
 
 ## Console
-nplot_rd2 <- ___ %>%
+##
+
+```
+
+
+```{r unevencount-cons2, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+nplot4_uneven <- ___ %>%
   as_tibble() %>%
   group_by(___) %>%
   summarise(n = n())
-nplot_rd2
+nplot4_uneven
 
 ```
 
 ```{r unevencount-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
-nplot_rd2 <- sf_plot_rd2 %>%
+## Solution
+nplot4_uneven <- sf_plot4_uneven %>%
   as_tibble() %>%
   group_by(lc) %>%
   summarise(n = n())
-nplot_rd2
+nplot4_uneven
 
 ```
 
 \  
 
-Well done! We will keep these results for later and move on with Uneven Systematic Sampling.
+Well done! We have one of the best possible simple sampling design, combining strengths of both systematic and random sampling.
 
+
+```{r, echo=F}
+
+simple_res <- area_lc %>%
+  left_join(nplot4 %>% rename(n_sys4 = n), by = "lc") %>%
+  left_join(nplot_rd %>% rename(n_rd = n), by = "lc") %>%
+  left_join(nplot4_uneven %>% rename(n_uneven4 = n), by = "lc") 
+
+simple_tot <- simple_res %>%
+  summarise(across(where(is.numeric), ~ sum(., na.rm = TRUE))) %>%
+  mutate(lc = "Total") %>% 
+  select(lc, everything())
+  
+simple_perc <- simple_res %>%
+  mutate(
+    area_p = area_ha / simple_tot$area_ha,
+    
+  )
+
+  
+
+```
 \  
 

@@ -1,7 +1,7 @@
 
 \newpage
 
-# Systematic sampling: demo
+# Systematic sampling: demo {sysdemo}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
@@ -29,6 +29,9 @@ offset <- st_bbox(sf_lc)[c("xmin", "ymin")] + c(-1000, -1000)
 
 :::::::
 
+\  
+
+## Create grid points {-}
 
 To make the grid we use the option `what = "polygon"`...
 
@@ -51,7 +54,7 @@ sf_points5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "centers", of
 
 \  
 
-After that, we overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot center point... 
+After that, we overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot center point.
 
 ```{r plot5}
 
@@ -62,7 +65,12 @@ sf_plot5 <- sf_points5 %>%
 
 ```
 
-... And visualize the grid with the following code (we have a custom color palette `pal` for ```r newland_name``` land covers).
+
+\  
+
+## Visualize {-}
+ 
+We can visualize the grid with the following code based on the `ggplot2` package and its `geom_sf()` function to display `sf` objects. we have a custom color palette `pal` for ```r newland_name``` land covers.
 
 ```{r ggplot5}
 
@@ -77,9 +85,13 @@ ggplot() +
 
 ```
 
+It's looking good!
+
 \  
 
-It's looking good! To calculate the number of plot in each forest type and the total we can use `group_by()` and `summarise()` again. 
+## Calculate the number of plot per land cover class {-}
+
+To calculate the number of plot in each forest type and the total we can use `group_by()` and `summarise()` again. 
 
 ```{r nplot5}
 
@@ -104,7 +116,7 @@ nplot5_total
 
 \  
 
-While we can afford this sampling size, we can try to intensify a bit to increase our precision. In our very first approximation we didn't account for the fact that a good proportion of the land is non-forest. In the next session you will prepare grids of 4 and 3 km width and calculate the number of forested plots.
+While we can afford this sampling size, the expected precision with this sample is closer to 15% than our target 10%. We can try to intensify a bit to increase our precision. In our very first approximation we didn't account for the fact that a good proportion of the land is non-forest. In the next session you will prepare grids of 4 and 3 km width and calculate the number of forested plots.
 
 \  
 

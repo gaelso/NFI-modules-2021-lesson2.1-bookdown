@@ -1,11 +1,15 @@
 
 \newpage
 
-# Systematic sampling: 3 km grid
+# Systematic sampling: 3 km grid {sys3}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-**Now Prepare `sf_point2`, `sf_plot2`, `nplot2` and `nplot2_total` for creating a 2 km grid.** 
+**Now Prepare `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 x 3 km grid.** 
+
+\  
+
+## Create the grid points {-}
 
 Create directly:
 
@@ -47,7 +51,9 @@ sf_plot3 <- sf_points3 %>%
 
 \  
 
-- A map with the plots over the land cover (remember we have a custom color palette `pal` for ```r newland_name``` land covers).
+## Visualize {-}
+
+Make a map with the plots over the land cover and use our color palette `pal` for ```r newland_name``` land covers).
 
 ```{r ggplot3-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -70,7 +76,9 @@ ggplot() +
 
 \  
 
-- Calculations of the number of plots per land cover class.
+## Calculate the number of plot per land cover class {-}
+
+Start with the number of plots per land cover class using `group_by()` and `summarise()`.
 
 ```{r nplot3-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -90,7 +98,7 @@ nplot3
 ```
 
 
-- And the total number of plot in forests.
+Then calculate the total number of plots in forest land.
 
 ```{r nplot3tot-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -111,7 +119,7 @@ nplot3_total
 
 ::::::{.question data-latex=""}
 
-Our desired sampling size is ```r round(n10)``` to give us an expected precision of 10% and it fits our budget. What sampling grid correspond best to our targert sampling size?
+Our desired sampling size is ```r round(n10)``` to give us an expected precision of 10% and it fits our budget. What sampling grid correspond best to our target sampling size?
 
 1. 5 km 
 1. **4 km**
