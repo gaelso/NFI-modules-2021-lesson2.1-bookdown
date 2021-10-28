@@ -73,7 +73,7 @@ knitr::include_graphics(path = "data/louland/lc-grid10-image.png")
 \newpage
 
 
-**NFI technical module 9: Practice**
+**NFI eLearning Practice Simulation**
 **Lesson 2: Simple sampling for carbon**
 **Part 1: Sampling design**
 

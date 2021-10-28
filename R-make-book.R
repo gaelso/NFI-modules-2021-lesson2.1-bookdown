@@ -25,6 +25,8 @@ with_watermark <- TRUE ## also need to activate in tex_preamble
 
 source("R/00-libs.R")
 
+source("R/00-functions.R")
+
 source("R/01-read-data.R")
 
 source("R/02-small-inventory.R")
@@ -78,7 +80,7 @@ unlink(x = "_bookdown_files", recursive = T)
 bookdown::render_book(
   input = "index.Rmd",
   output_format = "bookdown::word_document2",
-  output_file = paste0("Module 9 lesson 1-Overview of the preliminary data-", format(Sys.time(), format = "%Y-%m-%d-%H%M%S"), ".docx"),
+  output_file = paste0("Module 9 lesson 2-1-Simple sampling for carbon-", format(Sys.time(), format = "%Y-%m-%d-%H%M%S"), ".docx"),
   output_dir = "Handbook",
   output_options = list(reference_docx = "ref-empty.docx")
 )

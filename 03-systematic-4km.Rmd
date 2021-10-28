@@ -111,7 +111,7 @@ nplot4 <- sf_plot4 %>%
   as_tibble() %>%
   group_by(lc) %>%
   summarise(n = n())
-nplot3 
+nplot4 
 
 ```
 

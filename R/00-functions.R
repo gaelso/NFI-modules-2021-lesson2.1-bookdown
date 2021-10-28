@@ -31,7 +31,7 @@ display_table <- function(.list_opts=kab_opt, .format=book_format, .latex_scalin
     
   } else {
     
-    tt <- do.call(kable, .list_opts)
+    tt <- do.call(knitr::kable, .list_opts)
     
   } ## End if book_format
   
