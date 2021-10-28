@@ -211,7 +211,7 @@ with:</p>
 <p>Let’s first calculate the number of sample for different precision levels. For a 5% precision, the number of sample is:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="1-size.html#cb1-1" aria-hidden="true" tabindex="-1"></a>n05 <span class="ot">&lt;-</span> ((exfi_agb<span class="sc">$</span>sd_agb <span class="sc">/</span> exfi_agb<span class="sc">$</span>mean_agb <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">*</span> <span class="fl">1.96</span> <span class="sc">/</span> <span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb1-2"><a href="1-size.html#cb1-2" aria-hidden="true" tabindex="-1"></a>n05</span></code></pre></div>
-<pre class="Rout-demo"><code>[1] 957.7559</code></pre>
+<pre class="Rout-demo"><code>[1] 887.3099</code></pre>
 <p> </p>
 <p><strong>Your turn, calculate <code>n10</code>, <code>n15</code> and <code>n20</code>, the number of samples necessary to get respectively 10%, 15% and 20% precision on <code>Louland</code>’s mean aboveground biomass.</strong></p>
 <p>Calculations for 10% here:</p>
@@ -221,7 +221,7 @@ with:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r Rchunk-sol"><code class="sourceCode r"><span id="cb4-1"><a href="1-size.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution</span></span>
 <span id="cb4-2"><a href="1-size.html#cb4-2" aria-hidden="true" tabindex="-1"></a>n10 <span class="ot">&lt;-</span> ((exfi_agb<span class="sc">$</span>sd_agb <span class="sc">/</span> exfi_agb<span class="sc">$</span>mean_agb <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">*</span> <span class="fl">1.96</span> <span class="sc">/</span> <span class="dv">10</span>)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb4-3"><a href="1-size.html#cb4-3" aria-hidden="true" tabindex="-1"></a>n10</span></code></pre></div>
-<pre class="Rout-sol"><code>[1] 239.439</code></pre>
+<pre class="Rout-sol"><code>[1] 221.8275</code></pre>
 <p> </p>
 <p>Calculations for 15% here:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb6-1"><a href="1-size.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
@@ -230,7 +230,7 @@ with:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r Rchunk-sol"><code class="sourceCode r"><span id="cb7-1"><a href="1-size.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution</span></span>
 <span id="cb7-2"><a href="1-size.html#cb7-2" aria-hidden="true" tabindex="-1"></a>n15 <span class="ot">&lt;-</span> ((exfi_agb<span class="sc">$</span>sd_agb <span class="sc">/</span> exfi_agb<span class="sc">$</span>mean_agb <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">*</span> <span class="fl">1.96</span> <span class="sc">/</span> <span class="dv">15</span>)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb7-3"><a href="1-size.html#cb7-3" aria-hidden="true" tabindex="-1"></a>n15</span></code></pre></div>
-<pre class="Rout-sol"><code>[1] 106.4173</code></pre>
+<pre class="Rout-sol"><code>[1] 98.58999</code></pre>
 <p> </p>
 <p>Calculations for 20% here:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb9-1"><a href="1-size.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
@@ -238,7 +238,7 @@ with:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r Rchunk-sol"><code class="sourceCode r"><span id="cb10-1"><a href="1-size.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution</span></span>
 <span id="cb10-2"><a href="1-size.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n20 <span class="ot">&lt;-</span> ((exfi_agb<span class="sc">$</span>sd_agb <span class="sc">/</span> exfi_agb<span class="sc">$</span>mean_agb <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">*</span> <span class="fl">1.96</span> <span class="sc">/</span> <span class="dv">20</span>)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb10-3"><a href="1-size.html#cb10-3" aria-hidden="true" tabindex="-1"></a>n20</span></code></pre></div>
-<pre class="Rout-sol"><code>[1] 59.85975</code></pre>
+<pre class="Rout-sol"><code>[1] 55.45687</code></pre>
 <p> </p>
 <p>Well done! <strong>We have enough budget for around 300 plots</strong>. What precision can we afford?</p>
 <div class="question">
