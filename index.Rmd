@@ -60,7 +60,7 @@ if (book_format %in% c("html", "latex")) {
 
 ```{r img-cover, echo=F, out.width='50%', fig.asp=0.5, fig.align='center', fig.pos = 'H'}
 
-gr_grid10
+knitr::include_graphics(path = "data/louland/lc-grid10-image.png")
 
 ```
 

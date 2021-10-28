@@ -62,3 +62,5 @@ gr_grid10 <- ggplot() +
   )
 
 gr_grid10
+ggsave(plot = gr_grid10, filename = "data/louland/lc-grid10-image.png", width = 15, height = 15, dpi = 100, units = "cm")
+rm(gr_grid10)

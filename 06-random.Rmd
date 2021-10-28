@@ -1,7 +1,7 @@
 
 \newpage
 
-# Random Sampling {ran}
+# Random Sampling {#ran}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
@@ -10,18 +10,18 @@ Complete random sampling designs have a number of disadvantages and are generall
 
 ## Demo {-}
 
-The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we need to set the random selection with a seed and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove at will the chose seed number in the practice below.
+The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations are created. To get the same random allocation every time we run the code we need to set a "seed" and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove at will the chose seed number in the practice below.
 
 \  
 
 ::::::{.infobox data-latex=""}
 
-As the plot locations are completely random, we have no control over how many plots are going to land on forest versus non-forest land. We can apply two possible strategies to reach our target number of plots:
+As the plot locations are completely random, we have no control over how many plots are going to land on forest versus non-forest land. We can apply two possible strategies to reach our target number of plots inside forest land:
 
-1. We filter out non-forest polygons and make the sample size equal to the total number of plots in forest lands from our 4 x 4 km sampling grid `nplot4_total$n`.
-1. We make the sampling size equal to the original number of points in a 4 x 4 km grid `nrow(sf_points4)`
+1. Filter out non-forest polygons and make the sample size equal to the total number of plots in forest land from our 4 x 4 km sampling grid `nplot4_total$n`.
+1. Make the sampling size equal to the original number of points in a 4 x 4 km grid `nrow(sf_points4)` and accept that the result may be different from the systematic sampling. 
 
-We can anticipate that the second solution is better if you are also interested in non-forest land, although this is no guarantee you will have enough plots in each land cover. We will favor option 1 as our primary target is forest carbon stock.
+We can anticipate that the second solution is better if you are also interested in non-forest land, although there is no guarantee you will have enough plots in each land cover. We will favor option 1 as our primary target is forest carbon stock.
 
 As `sf` objects behave similarly to tibbles, the tidyverse function `filter()` will allow us to prepare a forest only shapefile.
 
@@ -75,7 +75,7 @@ ggplot() +
 
 \  
 
-If at a first glance the plot distribution shows a decent coverage of the new land, it is interesting to calculate the number of plots per land cover category.
+If at a first glance the plot distribution shows a decent coverage of the new land, it is interesting to calculate the number of plots per land cover category to confirm this impression.
 
 ```{r simp_nplot}
 
@@ -106,6 +106,7 @@ sf_points_rd2 <- st_sample(x = ___, size = ___) %>%
 
 ```{r ranpoints-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 set.seed(100)
 sf_points_rd2 <- st_sample(x = sf_lc, size = nplot3_total$n) %>%
   st_as_sf()
@@ -126,6 +127,7 @@ sf_plot_rd2 <- sf_points_rd2 %>%
 
 ```{r ranplot-sol, class.source="Rchunk-sol", Rout="Rout-sol"}
 
+## Solution
 sf_plot_rd2 <- sf_points_rd2 %>%
   st_join(sf_lc) %>%
   mutate(lc = fct_reorder(lc, lc_id)) %>%
@@ -152,6 +154,7 @@ ggplot() +
 
 ```{r ranmap-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
   geom_sf(data = sf_plot_rd2, aes(fill = lc), shape = 21) +
@@ -177,6 +180,7 @@ nplot_rd2
 
 ```{r rancount-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 nplot_rd2 <- sf_plot_rd2 %>%
   as_tibble() %>%
   group_by(lc) %>%
@@ -187,7 +191,7 @@ nplot_rd2
 
 \  
 
-Well done! We will keep these results for later and move on with Uneven Systematic Sampling.
+Well done! We will keep these results for later and move on with uneven systematic sampling.
 
 \  
 

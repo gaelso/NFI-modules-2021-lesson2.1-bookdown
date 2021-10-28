@@ -4,9 +4,9 @@
 
 ::::::{.infobox data-latex=""}
 
-National Forest inventories of different countries come with various cluster, plot and nested subplots **observation designs**. When using nested plot design, one objective is to measure quite equal number of all sizes of trees, for example by basal area or tree volume classes, and avoid measuring too many small trees. each plot should also capture "enough trees". 
+National Forest inventories of different countries come with various cluster, plot and nested subplots **observation designs**. When using nested plot design, one objective is to measure approximately an equal number of all sizes of trees, for example by basal area or tree volume classes, and avoid measuring too many small trees. Each plot should also capture "enough trees". 
 
-With additional preliminary information such as permanent sampling plots, or other forest inventories with large plots, we can optimize the observation design for various forest conditions.
+With additional preliminary information such as permanent sampling plots or other forest inventories with large plots, we can optimize the observation design for various forest conditions.
 
 ::::::
 
@@ -41,9 +41,10 @@ show_plot <- tree %>%
   geom_hline(aes(yintercept = subplot_radius), col = "darkred") +
   theme_bw() +
   ylim(0, 20) +
-  labs(x = "", y = "Distance (m)", fill = "Azimuth (degree)")
+  labs(x = "", y = "Distance (m)", fill = "Azimuth (degree)", size = "DBH (cm)")
 
 show_plot
 
 ```
 
+\  

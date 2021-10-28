@@ -1,4 +1,4 @@
-# Uneven Systematic Sampling {uneven}
+# Uneven Systematic Sampling {#uneven}
 
 In the NFI technical module 3 on sampling, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sample is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>.
 
@@ -251,20 +251,3 @@ Which of the following assertions are true?
 ::::::
 
 
-::::::{.infobox data-latex=""}
-
-Actually, a plot distribution proportional to land cover class relative areas is not always desirable. The main goal of sampling optimization is to get the best precision possible with the lowest number of plots to measure.  
-
-From the sampling size formula for Simple Random Sampling (see section \@ref(size)), it is easy to understand that the the number of plots to measure increases with the variability of our main variable of interest (represented by its coefficient of variation $CV$).
-
-If, for example, a population with a rather high $CV$ could be divided into two sub-populations with each a very low $CV$, we can intuitively understand that a small number of plot in each sub-population could give us a good precision. 
-
-Similarly, if one of the sub-population has a higher $CV$ than the other, and **even if its relative area is smaller comparatively smaller**, allocating a higher number of plots to this sub-population will increase the overall precision.
-
-For example, our simple sampling methods gave sample allocation to land cover classes more or less proportional to their relative areas. It means a very small number of plots in Mangrove forest and a high number of plots in Mixed-Deciduous forest. However the Aboveground biomass $CV$ for Mangrove may very well be much higher than in Mixed-Deciduous forest. In this case, a sampling strategy that would give more plots to Mangrove and less to Mixed-Deciduous forests would increase the overall precision of our Aboveground biomass and be more cost-efficient.
-
-These strategies are called <txt-green>Stratified Sampling</txt-green> and wil be the main topic of another interactive lesson.
-
-For now, we will continue with our best uneven systematic sampling design, based on 4 x 4 km grid.
-
-::::::

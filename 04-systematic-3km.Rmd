@@ -1,11 +1,13 @@
 
 \newpage
 
-# Systematic sampling: 3 km grid {sys3}
+# Systematic sampling: 3 x 3 km grid {#sys3}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-**Now Prepare `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 x 3 km grid.** 
+You should start to be familiar with the process and the R commands to generate grid points. In this section you are going to repeat the code and steps for generating grid points, this time with a 3 x 3 km grid.
+
+**Your turn! Create `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 x 3 km grid.** 
 
 \  
 
@@ -24,6 +26,7 @@ Create directly:
 
 ```{r points3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 sf_points3 <- st_make_grid(sf_lc, cellsize = c(3000, 3000), what = "centers", offset = offset) %>%
   st_intersection(sf_admin) %>%
   st_as_sf()
@@ -42,6 +45,7 @@ sf_points3 <- st_make_grid(sf_lc, cellsize = c(3000, 3000), what = "centers", of
 
 ```{r plot3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 sf_plot3 <- sf_points3 %>%
   st_join(sf_lc) %>%
   mutate(lc = fct_reorder(lc, lc_id)) %>%
@@ -64,6 +68,7 @@ Make a map with the plots over the land cover and use our color palette `pal` fo
 
 ```{r ggplot3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
   geom_sf(data = sf_plot3, aes(fill = lc), shape = 21) +
@@ -89,6 +94,7 @@ Start with the number of plots per land cover class using `group_by()` and `summ
 
 ```{r nplot3-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 nplot3 <- sf_plot3 %>%
   as_tibble() %>%
   group_by(lc) %>%
@@ -108,6 +114,7 @@ Then calculate the total number of plots in forest land.
 
 ```{r nplot3tot-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 nplot3_total <- nplot3 %>%
   filter(!(lc %in% c("WA", "NF"))) %>%
   summarise(n = sum(n))
@@ -121,13 +128,13 @@ nplot3_total
 
 Our desired sampling size is ```r round(n10)``` to give us an expected precision of 10% and it fits our budget. What sampling grid correspond best to our target sampling size?
 
-1. 5 km 
-1. **4 km**
-1. 3 km
+1. 5 x 5 km 
+1. **4 x 4 km**
+1. 3 x 3 km
 
 
 ::::::
 
-Good job! The 3 km grid is outside our budget constraint so we will continue with the <txt-green>4 km grid</txt-green>.
+Good job! The <txt-green>4 x 4 km grid</txt-green> fits well our precision objective of 10%, based on a cost/precision trade-off and we will use it as reference for two other sampling methods under what we called "simple sampling".
 
 \  

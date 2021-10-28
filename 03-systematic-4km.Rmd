@@ -1,9 +1,11 @@
 
 \newpage
 
-# Systematic sampling: 4 km grid {sys4}
+# Systematic sampling: 4 x 4 km grid {#sys4}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
+
+This whole session is composed of guided exercises to reproduce the demo but this time with a 4 x 4 km grid.
 
 **You turn! Prepare `sf_point4`, `sf_plot4`, `nplot4` and `nplot4_total` for creating a 4 x 4 km grid.** 
 
@@ -24,6 +26,7 @@ sf_points4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = "centers", offs
 
 ```{r points4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 sf_points4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "centers", offset = offset) %>%
   st_intersection(sf_admin) %>%
   st_as_sf()
@@ -45,6 +48,7 @@ sf_plot4 <- sf_points4 %>%
 
 ```{r plot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 sf_plot4 <- sf_points4 %>%
   st_join(sf_lc) %>%
   mutate(lc = fct_reorder(lc, lc_id)) %>%
@@ -72,6 +76,7 @@ ggplot() +
 
 ```{r ggplot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
   geom_sf(data = sf_plot4, aes(fill = lc), shape = 21) +
@@ -101,6 +106,7 @@ nplot4
 
 ```{r nplot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 nplot4 <- sf_plot4 %>%
   as_tibble() %>%
   group_by(lc) %>%
@@ -124,6 +130,7 @@ nplot4_total
 
 ```{r nplot4tot-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 nplot4_total <- nplot4 %>%
   filter(!(lc %in% c("WA", "NF"))) %>%
   summarise(n = sum(n))
@@ -133,6 +140,6 @@ nplot4_total
 
 \  
 
-Good job! The 4 km grid looks like exactly what we need. Let's still design a 3 km grid to see how many forest plots it would generate and practice the R code.
+Good job! The 4 km grid looks like exactly what we need. Let's still design a 3 x 3 km grid to see how many forest plots it would generate and practice the R code. In the next session the exercises won't be guided anymore, instead you will have a group of empty consoles to create, test and submit code.
 
 \  

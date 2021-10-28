@@ -1,11 +1,11 @@
 
 \newpage
 
-# Systematic sampling: demo {sysdemo}
+# Systematic sampling: demo {#sysdemo}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-Now let's see what sampling grid spacing is the closest to a sampling size of ```r n10```. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.
+Now let's see what sampling grid spacing is the closest to a sampling size of `r round(n10)` plots. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.
 
 ::::::{.infobox data-latex=""}
 
@@ -13,9 +13,9 @@ To practice R code we will process by try and error. We will start with a rather
 
 ::::::
 
-The new land fits more or less in a 90 x 90 km square, meaning that if we were to place a sampling plot at the center of each square of a 1 km grid we would have 90 * 90 = ```r 90^2``` sampling plots. Similarly a 4 km grid would give us approximately (90 / 5)^2 = ```r (90/5)^2``` plots. This is close to the number of plots for 10% precision on AGB so we will start there.
+The new land fits more or less in a 90 x 90 km square, meaning that if we were to place a sampling plot at the center of each square of a 1 km grid we would have 90 * 90 = `r 90^2` sampling plots. Similarly a 4 km grid would give us approximately (90 / 5)^2 = `r (90/5)^2` plots. This is close to the number of plots for 10% precision on AGB so we will start there.
 
-The `sf` package contains the function `st_make_grid()` to create random and grid points within an existing polygon.  Let's make the grid. We have the `sf_admin` shapefile that contains the administrative boundary of ```r newland_name``` and can be used as a canvas for the grid. 
+The `sf` package contains the function `st_make_grid()` to create random and grid points within an existing polygon.  Let's make the grid. We have the `sf_admin` shapefile that contains the administrative boundary of `r newland_name` and can be used as a canvas for the grid. 
 
 :::::::{.infobox data-latex=""}
 
@@ -38,11 +38,12 @@ To make the grid we use the option `what = "polygon"`...
 ```{r grid5}
 
 sf_grid5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "polygons", offset = offset) %>%
-  st_intersection(sf_admin)
+  st_intersection(sf_admin) %>%
+  st_as_sf()
 
 ```
 
-... And to make points we change the option to `what = "center"` (replace `"center"` with `"corner"` to have the points at the grid intersections). The function `st_as_sf()` converts the result of the intersection to an sf object.
+... And to make points we change the option to `what = "center"` (replace `"center"` with `"corner"` to have the points at the grid intersections). We use `st_intersection()` to reduce the grid to our 'country' boundaries and the function `st_as_sf()` converts the result of the intersection to an sf object. 
 
 ```{r points5}
 
@@ -54,7 +55,7 @@ sf_points5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "centers", of
 
 \  
 
-After that, we overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot center point.
+After that, we overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot. We like to order our land cover code `lc` to appear in a certain order in maps. To follow the order of the land cover numerical ID `lc_id` we use the function `fct_reorder` from the tidyverse package `forcats`.
 
 ```{r plot5}
 
@@ -91,7 +92,7 @@ It's looking good!
 
 ## Calculate the number of plot per land cover class {-}
 
-To calculate the number of plot in each forest type and the total we can use `group_by()` and `summarise()` again. 
+To calculate the number of plot in each forest type and the total we can use `group_by()` and `summarise()` again, and we first convert our `sf` object to a tibble to get rid of the spatial information. 
 
 ```{r nplot5}
 
@@ -116,7 +117,7 @@ nplot5_total
 
 \  
 
-While we can afford this sampling size, the expected precision with this sample is closer to 15% than our target 10%. We can try to intensify a bit to increase our precision. In our very first approximation we didn't account for the fact that a good proportion of the land is non-forest. In the next session you will prepare grids of 4 and 3 km width and calculate the number of forested plots.
+While we can afford this sampling size, its expected precision is closer to 15% than our target 10%. We can try to intensify a bit to increase our precision. In our very first approximation we didn't account for the fact that a good proportion of the land is non-forest. In the next session you will prepare grids of 4 and 3 km width and calculate the number of forested plots.
 
 \  
 
