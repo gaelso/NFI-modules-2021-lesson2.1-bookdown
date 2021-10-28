@@ -19,7 +19,7 @@ If, for example, a population with a rather high $CV$ could be divided into two 
 
 Similarly, if one of the sub-population has a higher $CV$ than the other, and **even if its relative area is smaller comparatively smaller**, allocating a higher number of plots to this sub-population will increase the overall precision.
 
-For example, our simple sampling methods gave sample allocation to land cover classes more or less proportional to their relative areas. It means a very small number of plots in Mangrove forest and a high number of plots in Mixed-Deciduous forest. However the Aboveground biomass $CV$ for Mangrove may very well be much higher than in Mixed-Deciduous forest. In this case, a sampling strategy that would give more plots to Mangrove and less to Mixed-Deciduous forests would increase the overall precision of our Aboveground biomass and be more cost-efficient.
+Our "simple" sampling methods gave sample allocation to land cover classes more or less proportional to their relative areas. It means a very small number of plots in Mangrove forest and a high number of plots in Mixed-Deciduous forest. However, the aboveground biomass $CV$ in Mangrove forests may very well be much higher than in Mixed-Deciduous forests. In this case, a sampling strategy that would give more plots to Mangrove and less to Mixed-Deciduous forests would increase the overall precision of our aboveground biomass and be more cost-efficient.
 
 These strategies are called <txt-green>Stratified Sampling</txt-green> and will be the main topic of another interactive lesson.
 

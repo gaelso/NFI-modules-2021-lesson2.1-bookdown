@@ -1,0 +1,10 @@
+tab:compa
+fig:ex-plot
+size
+sysdemo
+sys4
+sys3
+sysrecap
+ran
+uneven
+plot-designs

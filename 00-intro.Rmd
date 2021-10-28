@@ -5,9 +5,9 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-<txt-green>Welcome to the second lesson</txt-green> of the NFI technical module 9: Practice.
+<txt-green>Welcome to the second lesson</txt-green> of the National Forest Inventory eLearning practice simulation module.
 
-This interactive module is designed to complement the National Forest Inventory eLearning Modules with practical hands-on exercises on a fictional island that just emerged in the middle of the Atlantic Ocean: Louland. The lesson 2 focuses on several sampling methods that we called "simple sampling" as they are based on the <txt-green>simple random sampling statistics</txt-green>. 
+This interactive module is designed to complement the National Forest Inventory eLearning Modules with practical hands-on exercises on a fictional island that just emerged in the middle of the Atlantic Ocean: `Louland`. The lesson 2 focuses on several sampling methods that we called "simple sampling" as they are based on the <txt-green>simple random sampling statistics</txt-green>. 
 
 As we have seen in the NFI eLearning Modules, NFI are multi-purposes but the sampling design requires that we focus on one main variable of interest. In this lesson 2, <txt-green>the main variable of interest is the forest mean aboveground biomass</txt-green> of `r newland_name`. 
 So for this lesson2, we will limit ourselves to random, systematic and uneven systematic sampling, and we will obtain aboveground biomass estimates for each forest type through post-stratification.

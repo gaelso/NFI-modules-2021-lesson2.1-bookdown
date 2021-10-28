@@ -17,7 +17,7 @@ In this lesson, we will not dive into observation design optimization, the plot 
 
 Let's see for example all the trees measured in one plot: `"md-zzb5"` (Figure \@ref(fig:ex-plot)).
 
-```{r ex-plot, echo=F, fig.cap="Observation design for this lesson with plot 'md-zzb5'as example."}
+```{r ex-plot, echo=F, fig.cap="Observation design for this lesson with plot 'md-zzb5' as example."}
 
 nb_tree <- tree %>%
   group_by(plot_id) %>%

@@ -1,10 +1,10 @@
 # Uneven Systematic Sampling {#uneven}
 
-In the NFI technical module 3 on sampling, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sample is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>.
+In the **NFI eLearning Module 3: Sampling**, we have seen that systematic sampling are popular for their increased precision and low auto-correlation compared to simple random sampling. We have also seen that their main caveat is that a systematic sampling is based on only one randomization. One way to avoid this limitation is to create an <txt-green>uneven systematic sampling</txt-green>.
 
-An uneven systematic sample starts with the same grid as a systematic sample, but instead of placing plots at the center or corner of the grid, we allocate them randomly inside each square of the grid.
+An uneven systematic sample starts with the same grid as a systematic sampling, but instead of placing plots at the center or corner of the grid, we allocate them randomly inside each square of the grid.
 
- 
+\  
 
 ## Demo {-}
 
@@ -49,7 +49,7 @@ ggplot() +
 
 **Your turn! Create an uneven systematic sample based on the 4 x 4 km grid.**
 
--   First you need to create the 4 x 4 km grid. Have a look at the section \@ref{sysdemo} for code block if you don't remember the function inputs, and adpat it to the 4 x 4 km grid.
+- First you need to create the 4 x 4 km grid. Have a look at the section \@ref(sysdemo) for code block if you don't remember the function inputs, and adapt it to the 4 x 4 km grid.
 
 ```{r grid4-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -61,14 +61,15 @@ sf_grid4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = ___, offset = off
 
 ```{r grid4-sol, class.source="Rchunk-sol", Rout = "Rout-sol"}
 
+## Solution
 sf_grid4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "polygons", offset = offset) %>%
   st_intersection(sf_admin)
 
 ```
 
--   Create the points. We have just created the grids canvas `sf_grid4` and we have already created the grid points `sf_points4` in the section \@ref(sys4). Keep the seed 10 to have comparable results with all the users of this lesson.
+- Create the points. We have just created the grids canvas `sf_grid4` and we have already created the grid points `sf_points4` in the section \@ref(sys4). Keep the seed 10 to have comparable results with all the users of this lesson.
 
-NB: This operation is calculation intensive and may take a few minutes to complete.
+*NB: This operation is calculation intensive and may take a few minutes to complete.*
 
 ```{r unevenpoints-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -81,13 +82,14 @@ sf_points4_uneven <- st_sample(x = ___, size = ___) %>%
 
 ```{r unevenpoints-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
+## Solution
 set.seed(10)
 sf_points4_uneven <- st_sample(x = sf_grid4, size = rep(1, nrow(sf_points4))) %>%
   st_as_sf()
 
 ```
 
--   Add the land cover information:
+- Add the land cover information with `st_join()`.
 
 ```{r unevenplot-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -101,6 +103,7 @@ sf_plot4_uneven <- ___ %>%
 
 ```{r unevenplot-sol, class.source="Rchunk-sol", Rout="Rout-sol"}
 
+## Solution
 sf_plot4_uneven <- sf_points4_uneven %>%
   st_join(sf_lc) %>%
   mutate(lc = fct_reorder(lc, lc_id)) %>%
@@ -108,9 +111,9 @@ sf_plot4_uneven <- sf_points4_uneven %>%
 
 ```
 
- 
+\  
 
--   Show the plot locations on a map with a `ggplot()`:
+- Show the plot locations on a map with a `ggplot()`.
 
 ```{r unevenmap-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -147,9 +150,9 @@ ggplot() +
 
 ```
 
- 
+\  
 
--   Calculate the number of plots per land cover type:
+- And finally calculate the number of plots per land cover type.
 
 ```{r unevencount-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -160,7 +163,7 @@ ggplot() +
 
 ```{r unevencount-cons2, eval=F, class.source="Rchunk-cons"}
 
-## Tips
+## Tip
 nplot4_uneven <- ___ %>%
   as_tibble() %>%
   group_by(___) %>%
@@ -185,9 +188,9 @@ Well done! We have one of the best possible simple sampling design, combining st
 
 \  
 
-## Proportion of plots per forested land cover {-}
+## Proportion of plots per forest land cover {-}
 
-Let's compare how many plots fell in each land cover class of `r newland_name` (Table \@ref(tab:compa)). We can see that our three simple sampling methods gave similar plot allocation per land cover with plus or minus 3 points between their proportion and the area proportion of the land cover classes. 
+Let's compare how many plots fell in each land cover class of `r newland_name` for our three "simple" sampling methods (Table \@ref(tab:compa)). We can see that our three simple sampling methods gave similar plot allocation per land cover. There is plus or minus 3 points between their proportion and the area proportion of the land cover classes. 
 
 
 ```{r compa, echo=F}
@@ -237,7 +240,7 @@ display_table() %>%
 ```
 
 
-This illustrate a few elements of sampling design presented in the **NFI eLearning Module 3: Sampling**: the differences between these sampling methods doesn't translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
+Let's refer back to the **NFI eLearning Module 3: Sampling**. The differences between these sampling methods doesn't translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
 
 ::::::{.question data-latex=""}
 
@@ -246,7 +249,7 @@ Which of the following assertions are true?
 1. Simple random sampling (SRS) is not suitable because you have no control over plot distribution.
 1. **SRS is less suitable that systematic sampling methods as SRS plots have a higher chance of autocorrelation.**
 1. **Systematic sampling consist of one sample, it only borrows SRS stats because they are considered conservative.**
-1. **Uneven systematic sampling allows to use SRS statistical formulas while plot distributions still has less autocorrelation than SRS.**
+1. **Uneven systematic sampling allows to use SRS statistical formulas and plot distribution has less autocorrelation than SRS.**
 
 ::::::
 
