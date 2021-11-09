@@ -16,6 +16,7 @@ table(plot$lu_factor)
 
 plot_init <- plot %>% filter(lu_factor == "Evergreen") %>% pull(plot_id)
 
+set.seed(100)
 plot_select <- sample(1:length(plot_init), 10)
 
 plot_select <- plot_init[plot_select]
@@ -111,14 +112,14 @@ exfi_agb <- exfi_pagb %>%
 ## Create random plot locatioon in one forest stand #########################
 ##
 
-set.seed(36)
+set.seed(100)
 sf_exfi <- st_sample(x = sf_lc1 %>% filter(id == 406), size = 10) %>% 
   st_as_sf() %>%
   mutate(id = 1:10) %>%
   bind_cols(exfi_pagb)
 
-# tmap_mode("view")
-# tm_shape(sf_lc1) + tm_polygons(col = "lc", palette = palette1, popup.vars = c("lc", "id"), border.alpha = 0) +
-# tm_shape(sf_exfi) + tm_dots(col = "plot_agb", size = 0.1)
+tmap_mode("view")
+tm_shape(sf_lc1) + tm_polygons(col = "lc", palette = palette1, popup.vars = c("lc", "id"), border.alpha = 0) +
+tm_shape(sf_exfi) + tm_dots(col = "plot_agb", size = 0.1)
 
 

@@ -9,27 +9,27 @@
 
 This interactive module is designed to complement the National Forest Inventory eLearning Modules with practical hands-on exercises on a fictional island that just emerged in the middle of the Atlantic Ocean: `Louland`. The lesson 2 focuses on several sampling methods that we called "simple sampling" as they are based on the <txt-green>simple random sampling statistics</txt-green>. 
 
-As we have seen in the NFI eLearning Modules, NFI are multi-purposes but the sampling design requires that we focus on one main variable of interest. In this lesson 2, <txt-green>the main variable of interest is the forest mean aboveground biomass</txt-green> of `r newland_name`. 
-So for this lesson2, we will limit ourselves to random, systematic and uneven systematic sampling, and we will obtain aboveground biomass estimates for each forest type through post-stratification.
+As we have seen in the NFI eLearning Modules, NFIs, more so nowadays, are multi-purpose in nature but the sampling design requires that we focus on one main variable of interest. In this lesson 2, <txt-green>the main variable of interest is the forest mean aboveground biomass</txt-green> of `r newland_name`. 
+Here, we will limit ourselves to random and systematic sampling, and we will obtain aboveground biomass estimates for each forest type through post-stratification.
 
 
 ::::::{.infobox data-latex=""}
 
-If you have not completed the lesson 1: *Overview of the preliminary data*, we encourage you to start there. Lesson 1 provides a small overview of `r newland_name` and introduces how you will interact with R consoles embedded in this document.
+If you have not completed lesson 1: *Overview of the preliminary data*, we encourage you to start there. Lesson 1 provides a small overview of `r newland_name` and introduces how you will interact with R consoles embedded in this document.
 
 ::::::
 
-The lesson 2 is divided in two parts:
+Lesson 2 is divided in two parts:
 
 1. Sampling design
 1. Data analysis
 
-We will now start the part 1. We will develop a <txt-green>sampling design</txt-green> for estimating the mean carbon stock in ton/ha of `r newland_name`'s forests. The objectives of the part 1 are:
+We will now start part 1. We will develop a <txt-green>sampling design</txt-green> for estimating the mean carbon stock of `r newland_name`'s forests in ton/ha. The objectives of part 1 are:
 
-- Estimate a number of random samples based on a precision/cost trade-off (cost being simplified to the number of plots that we can afford for now),
+- Estimate sample size based on a precision/cost trade-off (cost being simplified to the number of plots that we can afford for now),
 - Find a sampling grid size for a systematic sampling closest to the estimated number of samples. 
-- Create a simple random sampling and an uneven systematic sampling with the same number of plots.
-- Compare the distribution of plots per forest category for these three type of simple sampling designs.
+- Create a simple random sampling with the same number of plots.
+- Compare the distribution of plots per forest category for these two types of simple sampling designs.
 
 
 ::::::{.infobox data-latex=""}

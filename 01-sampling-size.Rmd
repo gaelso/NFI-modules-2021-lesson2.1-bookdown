@@ -5,7 +5,7 @@
   
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-Remember in the NFI module lesson 3, the formula to estimate the **sampling size `n`**, based on Simple Random Sample (SRS), is:
+Remember in the NFI module 3, the formula to estimate the **sampling size `n`**, based on Simple Random Sample (SRS), is:
 
 $$n = \left(\frac{CV \cdot t^{1 - \alpha/2}_{n-1}}{A}\right)^2 \sim \left(\frac{CV \cdot 1.96}{A}\right)^2$$
 with:
@@ -13,13 +13,45 @@ with:
 - $CV = s / \overline{y} \times 100$ the NFI main variable coefficient of variation expressed as percentage, 
 - $s$ and $\overline{y}$ the samples main variable's standard deviation and average respectively,
 - $A$ the desired precision in percentage, and 
-- $t^{1 - \alpha/2}_{n-1}$ the Student's t-value with $n-1$ degrees of freedom and $1-\frac{\alpha}{2}$ confidence level where $\alpha$ is the significance level. This value is approximated by the value 1.96 when assuming an infinite sample and 0.95 confidence level.
+- $t^{1 - \alpha/2}_{n-1}$ the Student's t-value with $n-1$ degrees of freedom and $1-\frac{\alpha}{2}$ confidence level where $\alpha$ is the significance level. This value is approximated by the value 1.96 when assuming an infinite sample and 0.95 confidence level (two tails $\alpha$ = 0.05).
 
 \  
 
-Thanks to the results of the preliminary forest inventory (`exfi_agb`), we have an estimate of $\overline{y}$ and $s$ for a forest stand in ```r newland_name```. While this stand is most likely not representative of the whole island, we can use it to make an estimate of the number of samples necessary to achieve various target precision values. The final number of plots will depend on the desired precision and your budget constraints. In case of a systematic sampling we can add an additional constraint that we want the NFI grid to be a round km value.
+Thanks to the results of the preliminary forest inventory (`exfi_agb`), we have an estimate of $\overline{y}$ and $s$ for a forest stand in ```r newland_name```. While this stand is most likely not representative of the whole island, we can use it to make an estimate of the number of samples necessary to achieve various target precision values. The final number of plots will depend on the desired precision and your budget constraints. In case of systematic sampling we can add an additional constraint: we want the NFI grid size in km to be an integer number (i.e. 1, 2, 3. etc.).
 
-Let's first calculate the number of sample for different precision levels. For a 5% precision, the number of sample is:
+We had a look at the table `exfi_agb` in Lesson 1, let's show it again to remind ourselves the inventory's mean aboveground biomass `mean_agb` and it's standard deviation `sd_agb`. Run the table name in the console below.
+
+```{r exfi, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+```{r n10-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+exfi_agb
+
+```
+
+
+The table contains aggregated information on the number of trees measured, the average basal area (BA) in m^2^/ha and aboveground biomass (AGB) in ton/ha. The aboveground biomass is associated with its confidence interval in ton/ha and in percentage.
+
+What is the average aboveground biomass in ton/ha in the preliminary forest inventory?
+
+::::::{.question data-latex=""}
+
+*Multiple choices*
+
+1. **202**
+1. 525
+1. 112
+1. 181
+
+::::::
+
+Back to calculating a sampling size, let's first calculate the number of samples for different precision levels. For a 5% precision, the number of samples is:
 
 ```{r n05}
 

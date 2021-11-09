@@ -22,25 +22,17 @@ sf_p <- st_make_grid(sf_lc, cellsize = c(10000, 10000), what = "centers", offset
   mutate(lc = fct_reorder(lc, lc_id)) %>%
   filter(!is.na(lc))
 
-ggplot() +
-  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
-  geom_sf(data = sf_p, aes(fill = lc), shape = 21) +
-  geom_sf(data = sf_g, fill = NA, col = "red", size = 0.6) +
-  scale_fill_manual(values = pal) +
-  labs(fill = "", color = "") +
-  theme_void()
-
-
 gr_grid10 <- ggplot() +
   geom_sf(data = sf_lc, aes(fill = lc), col= NA) +
   scale_fill_manual(values = pal) +
   geom_sf(data = sf_p, aes(fill = lc), shape = 21) +
-  geom_sf(data = sf_g, fill = NA, col = "red", size = 0.6) +
+  geom_sf(data = sf_g, fill = NA, col = "red", size = 0.1) +
   geom_sf(data = sf_admin, fill = NA, size = 0.6, color = "black") +
   theme_bw() +
   theme(
     panel.background = element_rect(fill = "#73c2fb"),
-    text = element_text(family = "LoraIt")
+    text = element_text(family = "LoraIt"),
+    legend.position = "none"
   ) +
   labs(fill = "", color = "AGB (ton/ha)") +
   coord_sf(xlim = c(-20.5, -19.5), ylim = c(-0.8, 0.2), expand = FALSE, crs = st_crs(4326)) +

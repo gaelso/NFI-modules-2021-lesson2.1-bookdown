@@ -5,21 +5,25 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-Now let's see what sampling grid spacing is the closest to a sampling size of `r round(n10)` plots. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.
+Now let's see what sampling grid spacing is the closest to a sampling size of `r round(n10)` plots, the number of selected plots under our budget constraint. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.
 
 ::::::{.infobox data-latex=""}
 
-To practice R code we will process by try and error. We will start with a rather large grid spacing, based on a simple cross-multiplication and then reproduce the code for smaller grids until we reach a number of plots close to our budget constraint and an expected precision of 10%. 
+To practice R code we will practice grid creation sequentially, starting with large grid spacing, then reproduce the code for smaller grids until we reach a number of plots close to our budget constraint and an expected precision of 10%. 
 
+In a real case scenario, we can assess grid spacing by dividing the forest area by the sampling size to have the an estimate of the area that each sample point represent. For a square grid, the square root of last calculation gives the grid spacing. For example, for a 1,000 ha forest and a sampling size of 20, the grid size will be:
+
+$$d = \sqrt{\frac{1000 ha}{20}} = \sqrt{50ha} = \sqrt{500000m^2} \approx 707.1m$$
 ::::::
 
-The new land fits more or less in a 90 x 90 km square, meaning that if we were to place a sampling plot at the center of each square of a 1 km grid we would have 90 * 90 = `r 90^2` sampling plots. Similarly a 4 km grid would give us approximately (90 / 5)^2 = `r (90/5)^2` plots. This is close to the number of plots for 10% precision on AGB so we will start there.
 
-The `sf` package contains the function `st_make_grid()` to create random and grid points within an existing polygon.  Let's make the grid. We have the `sf_admin` shapefile that contains the administrative boundary of `r newland_name` and can be used as a canvas for the grid. 
+`r newland_name` fits approximately in a 90 x 90 km square, meaning that if we were to place a sampling plot at the center of each square of a 1 km grid we would have 90 * 90 = `r 90^2` sampling plots. Similarly a 5 km grid would give us approximately (90 / 5)^2 = `r (90/5)^2` plots. This is close to the number of plots for our 10% precision on AGB so we will start there.
+
+The `sf` package contains the function `st_make_grid()` to create random and grid points within an existing polygon. We have the `sf_admin` shapefile that contains the administrative boundary of `r newland_name` and can be used as a canvas for the grid. 
 
 :::::::{.infobox data-latex=""}
 
-We will also offset the grid starting point 1 km South and 1 km West of the land most Southern and Western point to avoid having too many plots at the edge of the land. This is a precaution specific for this exercise, as ```r newland_name``` shape is close to a square, and may not be needed in a real country! The `offset` is calculated based on the land cover shapefile bounding box calculated with `st_bbox()`.
+We will also offset the grid starting point 1 km southwards and 1 km westwards of the land most Southern and Western point to avoid having too many plots at the edge of the land. This is a precaution specific for this exercise, as ```r newland_name``` shape is close to a square, and may not be needed in a real country! The `offset` is calculated based on the land cover shapefile bounding box calculated with `st_bbox()`.
 
 ```{r offset}
 
@@ -43,7 +47,7 @@ sf_grid5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "polygons", off
 
 ```
 
-... And to make points we change the option to `what = "center"` (replace `"center"` with `"corner"` to have the points at the grid intersections). We use `st_intersection()` to reduce the grid to our 'country' boundaries and the function `st_as_sf()` converts the result of the intersection to an sf object. 
+... and to make points we change the option to `what = "center"` (replace `"center"` with `"corner"` to locate the points at the grid intersections). We use `st_intersection()` to reduce the grid to our 'country' boundaries and the function `st_as_sf()` converts the result of the intersection to an sf object. 
 
 ```{r points5}
 
@@ -55,7 +59,7 @@ sf_points5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "centers", of
 
 \  
 
-After that, we overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot. We like to order our land cover code `lc` to appear in a certain order in maps. To follow the order of the land cover numerical ID `lc_id` we use the function `fct_reorder` from the tidyverse package `forcats`.
+We can finally overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot. We aim for our land cover code `lc` to appear in a certain order in the map. To follow the order of the land cover numerical ID `lc_id` we use the function `fct_reorder` from the tidyverse package `forcats`. This function convert a text variable into an ordered factors following an other variable (`lc_id` in our case). 
 
 ```{r plot5}
 
