@@ -9,7 +9,7 @@ Now let's see what sampling grid spacing is the closest to a sampling size of `r
 
 ::::::{.infobox data-latex=""}
 
-To practice R code we will practice grid creation sequentially, starting with large grid spacing, then reproduce the code for smaller grids until we reach a number of plots close to our budget constraint and an expected precision of 10%. 
+To help you become familiar with the R code we will practice grid creation sequentially, starting with large grid spacing, then reproduce the code for smaller grids until we reach a number of plots close to our budget constraint and an expected precision of 10%. 
 
 In a real case scenario, we can assess grid spacing by dividing the forest area by the sampling size to have the an estimate of the area that each sample point represent. For a square grid, the square root of last calculation gives the grid spacing. For example, for a 1,000 ha forest and a sampling size of 20, the grid size will be:
 
@@ -20,6 +20,17 @@ $$d = \sqrt{\frac{1000 ha}{20}} = \sqrt{50ha} = \sqrt{500000m^2} \approx 707.1m$
 `r newland_name` fits approximately in a 90 x 90 km square, meaning that if we were to place a sampling plot at the center of each square of a 1 km grid we would have 90 * 90 = `r 90^2` sampling plots. Similarly a 5 km grid would give us approximately (90 / 5)^2 = `r (90/5)^2` plots. This is close to the number of plots for our 10% precision on AGB so we will start there.
 
 The `sf` package contains the function `st_make_grid()` to create random and grid points within an existing polygon. We have the `sf_admin` shapefile that contains the administrative boundary of `r newland_name` and can be used as a canvas for the grid. 
+
+We have two `sf` objects in the preliminary data: `sf_admin`, the administrative boundaries of  `r newland_name` and `sf_lc` the land cover shapefile data of `r newland_name`. In trhe console below you can run the object names to see their basic information.
+
+```{r, eval=F}
+
+## Console
+##
+
+```
+
+\  
 
 :::::::{.infobox data-latex=""}
 
@@ -35,7 +46,7 @@ offset <- st_bbox(sf_lc)[c("xmin", "ymin")] + c(-1000, -1000)
 
 \  
 
-## Create grid points {-}
+## Create grid points on a 5 x 5 km grid {-}
 
 To make the grid we use the option `what = "polygon"`...
 
@@ -47,7 +58,7 @@ sf_grid5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "polygons", off
 
 ```
 
-... and to make points we change the option to `what = "center"` (replace `"center"` with `"corner"` to locate the points at the grid intersections). We use `st_intersection()` to reduce the grid to our 'country' boundaries and the function `st_as_sf()` converts the result of the intersection to an sf object. 
+... and to create the points we change the option to `what = "center"` (replace `"center"` with `"corner"` to locate the points at the grid intersections). We use `st_intersection()` to reduce the grid to our 'country' boundaries and the function `st_as_sf()` converts the result of the intersection to an sf object. 
 
 ```{r points5}
 
@@ -59,7 +70,7 @@ sf_points5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "centers", of
 
 \  
 
-We can finally overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot. We aim for our land cover code `lc` to appear in a certain order in the map. To follow the order of the land cover numerical ID `lc_id` we use the function `fct_reorder` from the tidyverse package `forcats`. This function convert a text variable into an ordered factors following an other variable (`lc_id` in our case). 
+We can finally overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot. We aim for our land cover code `lc` to appear in a certain order in the map. To follow the order of the land cover numerical ID `lc_id` we use the function `fct_reorder` from the tidyverse package `forcats`. This function convert a text variable into an ordered factor following an other variable (`lc_id` in our case). 
 
 ```{r plot5}
 
@@ -76,6 +87,10 @@ sf_plot5 <- sf_points5 %>%
 ## Visualize {-}
  
 We can visualize the grid with the following code based on the `ggplot2` package and its `geom_sf()` function to display `sf` objects. we have a custom color palette `pal` for ```r newland_name``` land covers.
+
+```{r pal}
+pal <- c()
+```
 
 ```{r ggplot5}
 

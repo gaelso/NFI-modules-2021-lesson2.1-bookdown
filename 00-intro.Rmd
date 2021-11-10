@@ -40,6 +40,18 @@ However, since the maths for the estimations resulting from these sampling metho
 
 ::::::
 
+
+In this lesson we will use the collection of packages grouped inside the package `tidyverse` for general data analysis and the package `sf` for spatial data analysis.
+
+```{r libs, eval=F}
+
+library(tidyverse)
+library(sf)
+
+```
+
+Note that in the background we also use `extrafont` to add Google Fonts to our figures and `ggspatial` to add the North arrow and scale to our maps.
+
 <txt-green>Let's get started!</txt-green>
 
 
