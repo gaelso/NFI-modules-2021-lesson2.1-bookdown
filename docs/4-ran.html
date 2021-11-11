@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="3-sys3.html"/>
-<link rel="next" href="proportion-of-plots-per-forest-type.html"/>
+<link rel="next" href="conclusion.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -157,8 +157,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="4-ran.html"><a href="4-ran.html#demo"><i class="fa fa-check"></i>Demo</a></li>
 <li class="chapter" data-level="" data-path="4-ran.html"><a href="4-ran.html#practice"><i class="fa fa-check"></i>Practice</a></li>
+<li class="chapter" data-level="" data-path="4-ran.html"><a href="4-ran.html#proportion-of-plots-per-forest-type"><i class="fa fa-check"></i>Proportion of plots per forest type</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="proportion-of-plots-per-forest-type.html"><a href="proportion-of-plots-per-forest-type.html"><i class="fa fa-check"></i>Proportion of plots per forest type</a></li>
 <li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://rise.articulate.com/share/R7P0qbZvrtsqIOshAMhXz1RzNXkrGlSc#/" target="blank"><b>NFI eLearning modules</b></a></li>
@@ -311,9 +311,213 @@ DRAFT
 5 EV       80
 6 MG        9</code></pre>
 <p> </p>
-<p>Well done! In the next session, will compare the plot distribution between random and systematic sampling.</p>
+<p>Well done! In the next section, will compare the plot distribution between random and systematic sampling.</p>
+<p> </p>
+</div>
+<div id="proportion-of-plots-per-forest-type" class="section level2 unnumbered">
+<h2>Proportion of plots per forest type</h2>
+<p>Let’s compare how many plots fell in each land cover class of Louland between systematic and simple random sampling (Table <a href="4-ran.html#tab:compa">4.1</a>). We can see that our two simple sampling methods gave similar plot allocation per land cover. There is plus or minus 2 points between their proportion and the area proportion of the land cover classes.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:compa">Table 4.1: </span>Area and percentage of plots in each forest land cover.
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Area (kha)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Systematic sampling
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Random sampling
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Land cover
+</th>
+<th style="text-align:right;">
+Area
+</th>
+<th style="text-align:right;">
+perc.
+</th>
+<th style="text-align:right;">
+# plots
+</th>
+<th style="text-align:right;">
+perc.
+</th>
+<th style="text-align:right;">
+# plots
+</th>
+<th style="text-align:right;">
+perc.
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+WL
+</td>
+<td style="text-align:right;">
+152.70
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DD
+</td>
+<td style="text-align:right;">
+63.98
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MD
+</td>
+<td style="text-align:right;">
+186.39
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+108
+</td>
+<td style="text-align:right;">
+35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EV
+</td>
+<td style="text-align:right;">
+88.91
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MG
+</td>
+<td style="text-align:right;">
+10.36
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+502.34
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+313
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+313
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s refer back to the <strong>NFI eLearning Module 3: Sampling</strong>. The differences between these sampling methods do not translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.</p>
+<div class="question">
+<p>Which of the following assertions are true?</p>
+<ol style="list-style-type: decimal">
+<li>Simple random sampling (SRS) is not suitable because you have no control over plot distribution.</li>
+<li><strong>SRS is less suitable than systematic sampling methods as SRS presents a higher chance of autocorrelation.</strong></li>
+<li><strong>Systematic sampling consists of one sample, it only borrows SRS stats because they are considered conservative.</strong></li>
+</ol>
+</div>
 <p> </p>
 
+<div style="page-break-after: always;"></div>
 </div>
 </div>
             </section>
@@ -322,7 +526,7 @@ DRAFT
         </div>
       </div>
 <a href="3-sys3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="proportion-of-plots-per-forest-type.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
