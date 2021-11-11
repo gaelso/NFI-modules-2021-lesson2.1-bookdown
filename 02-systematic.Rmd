@@ -162,7 +162,7 @@ sf_grid4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = ___, offset = ___
 
 ```
 
-```{r points4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+```{r grid4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
 ## Solution
 sf_grid4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "polygons", offset = offset) %>%

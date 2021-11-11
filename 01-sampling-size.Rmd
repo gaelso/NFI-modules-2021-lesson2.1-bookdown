@@ -28,7 +28,7 @@ We had a look at the table `exfi_agb` in Lesson 1, let's show it again to remind
 
 ```
 
-```{r n10-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+```{r exfi-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
 ## Solution
 exfi_agb
