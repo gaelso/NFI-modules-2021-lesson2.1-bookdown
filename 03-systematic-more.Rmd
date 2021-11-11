@@ -5,15 +5,9 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-You should start to be familiar with the process and the R commands to generate grid points. In this section you are going to repeat the code and steps for generating grid points, this time with a 3 x 3 km grid.
+This section is optional. If you wish to practice more the grid creation commands, or if you are curious to know how many forest plots we would have with a 3 x 3 km grid, complete the exercises below, otherwise you can skip directly to the next session.
 
-**Your turn! Create `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 x 3 km grid.** 
-
-\  
-
-## Create the grid points {-}
-
-Create directly:
+**In the following console boxes, create `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 x 3 km grid (we skip the grid itself to start directly with the points):** 
 
 - Points with the option `what = "center"`.
 
@@ -55,9 +49,7 @@ sf_plot3 <- sf_points3 %>%
 
 \  
 
-## Visualize {-}
-
-Make a map with the plots over the land cover and use our color palette `pal` for ```r newland_name``` land covers).
+- Make a map with the plots over the land cover and use our color palette `pal` for ```r newland_name``` land covers.
 
 ```{r ggplot3-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -81,9 +73,7 @@ ggplot() +
 
 \  
 
-## Calculate the number of plot per land cover class {-}
-
-Start with the number of plots per land cover class using `group_by()` and `summarise()`.
+- Calculate the number of plot per land cover class using `group_by()` and `summarise()`.
 
 ```{r nplot3-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -103,8 +93,9 @@ nplot3
 
 ```
 
+\  
 
-Then calculate the total number of plots in forest land.
+- Finally calculate the total number of plots in forest land.
 
 ```{r nplot3tot-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -121,20 +112,5 @@ nplot3_total <- nplot3 %>%
 nplot3_total
 
 ```
-
-\  
-
-::::::{.question data-latex=""}
-
-Our desired sampling size is ```r round(n10)``` to give us an expected precision of 10% and it fits our budget. What sampling grid correspond best to our target sampling size?
-
-1. 5 x 5 km 
-1. **4 x 4 km**
-1. 3 x 3 km
-
-
-::::::
-
-Good job! The <txt-green>4 x 4 km grid</txt-green> fits well our precision objective of 10%, based on a cost/precision trade-off and we will use it as reference for two other sampling methods under what we called "simple sampling".
 
 \  

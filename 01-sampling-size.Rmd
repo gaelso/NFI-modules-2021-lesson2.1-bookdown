@@ -55,7 +55,7 @@ Back to calculating a sampling size, let's first calculate the number of samples
 
 ```{r n05}
 
-n05 <- ((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 5)^2
+n05 <- round(((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 5)^2)
 n05
 
 ``` 
@@ -69,7 +69,7 @@ Calculations for 10% here:
 ```{r n10-cons, eval=F, class.source="Rchunk-cons"}
 
 ## Console
-n10 <- ((exfi_agb$sd_agb / exfi_agb$mean_agb) * ___ / ___)^2
+n10 <- round(((exfi_agb$sd_agb / exfi_agb$mean_agb) * ___ / ___)^2)
 n10
 
 ```
@@ -77,7 +77,7 @@ n10
 ```{r n10-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
 ## Solution
-n10 <- ((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 10)^2
+n10 <- round(((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 10)^2)
 n10
 
 ```
@@ -89,7 +89,7 @@ Calculations for 15% here:
 ```{r n15-cons, eval=F, class.source="Rchunk-cons"}
 
 ## Console
-n15 <- ((___ / ___) * ___ / ___)^2
+n15 <- round(((___ / ___) * ___ / ___)^2)
 n15
 
 ```
@@ -97,7 +97,7 @@ n15
 ```{r n15-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
 ## Solution
-n15 <- ((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 15)^2
+n15 <- round(((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 15)^2)
 n15
 
 ```
@@ -117,7 +117,7 @@ Calculations for 20% here:
 ```{r n20-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
 
 ## Solution
-n20 <- ((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 20)^2
+n20 <- round(((exfi_agb$sd_agb / exfi_agb$mean_agb * 100) * 1.96 / 20)^2)
 n20
 
 ```

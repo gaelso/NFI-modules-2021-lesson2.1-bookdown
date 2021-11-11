@@ -1,0 +1,442 @@
+
+\newpage
+
+# Systematic sampling {#sys}
+
+`r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
+
+Now let's see what sampling grid spacing is the closest to a sampling size of `r n10` plots, the number of selected plots selected with our budget constraint. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.
+
+
+\  
+
+
+## Grid spacing {-}
+
+To calculate the grid spacing corresponding to our sampling size, first we divide forest area by sampling size to have the an estimate of the area that each sample point represent. For a square grid, the square root of this division gives the grid spacing. For example, for a 1,000 ha forest and a sampling size of 20 plots, the grid size will be:
+
+$$d = \sqrt{\frac{1000 ha}{20}} = \sqrt{50ha} = \sqrt{500000m^2} \approx 707.1m$$
+
+In our case, we can calculate the forest area of `r newland_name` from the table `area_lc` calculated in Lesson 1. We need to (1) filter forested land cover classes with `filter()`, (2) extract their area with `pull()` and (3) sum their area. 
+
+**Your turn! Use the console below to create the object `area_forest` that contain the total forest area.**
+
+Remember that our land cover classes are coded `EV`, `MD`, `DD`, `MG`, `WL`, `NF` and `WA` for Evergreen, Mixed Deciduous, 
+Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.
+
+```{r areafor, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+```{r areafor-tip1, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+## First run `area_lc` in the console to see what land cover classes are represented and which codes need to be filtered
+
+```
+
+```{r areafor-tip2, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+area_forest <- area_lc %>%
+  filter(lc %in% c(___)) %>%
+  pull(___) %>%
+  sum()
+
+area_forest
+
+```
+
+```{r areafor-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+area_forest <- area_lc %>%
+  filter(lc %in% c("EV", "MD", "DD", "MG", "WL")) %>%
+  pull(area_ha) %>%
+  sum()
+
+area_forest
+
+```
+
+\  
+
+Then we need to convert the forest area from hectares to square km:
+
+```{r}
+
+area_forest_km2 <- as.numeric(set_units(area_forest, value = km2))
+
+area_forest_km2 
+
+``` 
+
+Finally, we can apply the grid spacing formula with the square root function `sqrt()` and the sampling size for a 10% precision `n10`. Complete the following code sequence to calculate the grid spacing.
+
+```{r gridspacing, eval=F, class.source="Rchunk-cons"}
+
+## Console
+grid_spacing <- round(sqrt(___ / ___), 3)
+
+grid_spacing
+
+```
+
+```{r gridspacing-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+grid_spacing <- round(sqrt(area_forest_km2 / n10), 3)
+
+grid_spacing
+
+```
+
+The result is a grid spacing slightly larger than 4 km. We need to note here that the number of plot falling on forest land might differ from this hypothetical value, depending on the forest distribution. We need to create the grid and calculate how many plots are located on forest land to cross check that the grid spacing fits our desired cost/precision sampling size. Even after this confirmation, there can be mapping errors and several plots confirmed to be located on forest land may not be forested. 
+
+\  
+
+::::::{.infobox data-latex=""}
+
+To help you become familiar with the R code, we will demonstrate the sequence of commands to create the grid, map it and calculate the number of plots per land cover class on a 5 x 5 km grid for the sake of demonstration and we will let you develop the 4 x 4 km grid through guided exercises.
+
+::::::
+
+
+\  
+
+
+## Create grid points {-}
+
+The `sf` package contains the function `st_make_grid()` to create grids, and aligned or unaligned grid points within grid polygons. We have the `sf_admin` shapefile that contains the administrative boundary of `r newland_name` and can be used as a canvas for the grid. 
+
+We have two `sf` objects in the preliminary data: `sf_admin`, the administrative boundaries of  `r newland_name` and `sf_lc` the land cover shapefile data of `r newland_name`. In the console below you can run the object names to see their basic information.
+
+```{r, eval=F}
+
+## Console
+##
+
+```
+
+\  
+
+:::::::{.infobox data-latex=""}
+
+We will also offset the grid starting point 1 km southwards and 1 km westwards of the land most Southern and Western point to avoid having too many plots at the edge of the land. This is a precaution specific for this exercise, as ```r newland_name``` shape is close to a square, and may not be needed in a real country! The `offset` is calculated based on the land cover shapefile bounding box calculated with `st_bbox()`.
+
+```{r offset}
+
+offset <- st_bbox(sf_lc)[c("xmin", "ymin")] + c(-1000, -1000)
+
+```
+
+:::::::
+
+
+\  
+
+
+### How to create grids {-}
+
+To create a 5 x 5 km grid we will fill the input `cellsize` with `c(5000, 5000)` as the unit is meters, and to make the grid we use the option `what = "polygon"`.
+
+```{r grid5}
+
+sf_grid5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "polygons", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+**You turn! Adapt the above code to create `sf_grid4`,  the 4 x 4 km grid.** 
+
+```{r grid4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+sf_grid4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = ___, offset = ___) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+```{r points4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+sf_grid4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "polygons", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+\  
+
+
+### How to create aligned sampling points {-}
+
+
+To create the points we change the option to `what = "center"` (replace `"center"` with `"corner"` to locate the points at the grid intersections). At this stage,  we can also use `st_intersection()` to reduce the grid to our 'country' boundaries and the function `st_as_sf()` converts the result of the intersection to an `sf` object. 
+
+```{r points5}
+
+sf_points5 <- st_make_grid(sf_lc, cellsize = c(5000, 5000), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+**You turn! Prepare `sf_point4`, the points' location on the 4 x 4 k grid.**
+
+```{r points4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+```{r points4-tips, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+sf_points4 <- st_make_grid(sf_lc, cellsize = c(___, ___), what = ___, offset = ___) %>%
+  st_intersection(___) %>%
+  st_as_sf()
+
+```
+
+```{r points4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+sf_points4 <- st_make_grid(sf_lc, cellsize = c(4000, 4000), what = "centers", offset = offset) %>%
+  st_intersection(sf_admin) %>%
+  st_as_sf()
+
+```
+
+\  
+
+We can finally overlap the point grid with the land cover layer with `st_join()` to assign land cover to each plot. We aim for our land cover code `lc` to appear in a certain order in the map. To follow the order of the land cover numerical ID `lc_id` we use the function `fct_reorder` from the tidyverse package `forcats`. This function convert a text variable into an ordered factor following an other variable (`lc_id` in our case). 
+
+```{r plot5}
+
+sf_plot5 <- sf_points5 %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+**Your turn! Adapt the above code to prepare `sf_plot4`, joining the points location and the land cover class spatial data.**
+
+```{r plot4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+```{r plot4-tips, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+sf_plot4 <- ___ %>%
+  st_join(___) %>%
+  mutate(lc = fct_reorder(___, ___)) %>%
+  filter(___)
+
+```
+
+```{r plot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+sf_plot4 <- sf_points4 %>%
+  st_join(sf_lc) %>%
+  mutate(lc = fct_reorder(lc, lc_id)) %>%
+  filter(!is.na(lc))
+
+```
+
+
+\  
+
+
+## Visualize {-}
+ 
+We can visualize the grid with the following code based on the `ggplot2` package and its `geom_sf()` function to display `sf` objects. 
+
+\  
+
+:::::::{.infobox data-latex=""}
+
+We have a custom color palette `pal` for ```r newland_name``` land covers. We can see this color palette with the function `show_col()` from the `scales` package
+
+```{r pal}
+pal <- c("#73c2fb", "#edf5e1", "#ffcb9a", "#5cdb95", "#379683", "#00743f", "#012172")
+
+library(scales)
+show_col(pal)
+```
+
+::::::
+
+\  
+
+Here is the code to make the map with the 5 x 5 km systematic sampling design.
+
+```{r ggplot5}
+
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot5, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_grid5, fill = NA, col = "red", size = 0.1) +
+  geom_sf(data = sf_admin, fill= NA) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+**It's looking good! Adapt this code to make the same map with the 4 x 4 km grid.**
+
+```{r ggplot4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+## 
+
+```
+
+```{r ggplot4-tips, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+ggplot() +
+  geom_sf(data = ___, aes(fill = lc), color = NA) +
+  geom_sf(data = ___, aes(fill = lc), shape = 21) +
+  geom_sf(data = ___, fill = NA, col = "red", size = 0.1) +
+  geom_sf(data = ___, fill= NA) +
+  scale_fill_manual(values = ___) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+```{r ggplot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+ggplot() +
+  geom_sf(data = sf_lc, aes(fill = lc), color = NA) +
+  geom_sf(data = sf_plot4, aes(fill = lc), shape = 21) +
+  geom_sf(data = sf_grid4, fill = NA, col = "red", size = 0.1) +
+  geom_sf(data = sf_admin, fill= NA) +
+  scale_fill_manual(values = pal) +
+  labs(fill = "", color = "") +
+  theme_void()
+
+```
+
+
+\  
+
+
+## Calculate the number of plots per land cover class {-}
+
+To calculate the number of plots in each land cover class, we need to group the plots by land cover with `group_by()`, then count them with `summarise()` (remember lesson 1) and the function `n()`. `n()` counts the number of rows in a table or in each category of a category variable. As we don't need the spatial information, we first convert our `sf` object to a tibble with `as_tibble()`. 
+
+```{r nplot5}
+
+nplot5 <- sf_plot5 %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot5 
+
+```
+
+**Your turn! Calculate the number of plots per land cover class with the 4 x 4 km grid**
+
+```{r nplot4-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+```{r nplot4-tips, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+nplot4 <- ___ %>%
+  as_tibble() %>%
+  ___(lc) %>%
+  ___(n = n())
+nplot4 
+
+```
+
+```{r nplot4-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+nplot4 <- sf_plot4 %>%
+  as_tibble() %>%
+  group_by(lc) %>%
+  summarise(n = n())
+nplot4 
+
+```
+
+\  
+
+Last step, to get the total number of forest plots we need to filter out non-forest categories with `filter()` and sum up the remaining number of plots.
+
+```{r nplot5_total}
+
+nplot5_total <- nplot5 %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(n = sum(n))
+nplot5_total
+
+```
+
+**Your turn! Calculate the total number of forest plots in the 4 x 4 km grid.**
+
+```{r nplot4tot-cons, eval=F, class.source="Rchunk-cons"}
+
+## Console
+##
+
+```
+
+```{r nplot4tot-tips, eval=F, class.source="Rchunk-cons"}
+
+## Tips
+nplot4_total <- ___ %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(___)
+nplot4_total
+
+```
+
+```{r nplot4tot-sol, class.source="Rchunk-sol", class.output="Rout-sol"}
+
+## Solution
+nplot4_total <- nplot4 %>%
+  filter(!(lc %in% c("WA", "NF"))) %>%
+  summarise(n = sum(n))
+nplot4_total
+
+```
+
+\  
+
+Good job! Looking back at the sampling size given by different precision levels, we had ```r round(n10)``` plots for 10% precision and ```r round(n15)``` plots for 15% precision. Our budget is enough to measure around 300 plots, so we can afford an expected precision of 10%. <txt-green>The 4 x 4 km grid</txt-green> anticipates `r nplot4_total$n` plots in forest land and its exactly what we need and can afford.
+
+\  
+
+## Systematic sampling: Recap {-}
+
+Based on the preliminary inventory and few R skills, we have now identified a good sampling grid. To recap the process was:
+
+1. We used the **preliminary forest inventory** results to calculate an hypothetical number of samples required for a desired precision of 5, 10, 15 or 20%.
+1. Based on our available budget we have identified what precision we can afford and how many plots it requires, *i.e.* our **sampling size**.
+1. We have then created different **sampling grids** for `r newland_name` and estimated how many plots would fall on forest land.
+1. We have selected the most adequate sampling grid based on our **cost/precision trade-off**.
+
+\  

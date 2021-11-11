@@ -16,6 +16,7 @@
 library(sf)
 library(tmap)
 library(ggspatial)
+library(units)
 
 tmap_options(check.and.fix = TRUE)
 
