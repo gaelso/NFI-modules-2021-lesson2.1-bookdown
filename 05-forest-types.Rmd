@@ -1,0 +1,72 @@
+
+# Proportion of plots per forest type {-}
+
+Let's compare how many plots fell in each land cover class of `r newland_name` between systematic and simple random sampling (Table \@ref(tab:compa)). We can see that our two simple sampling methods gave similar plot allocation per land cover. There is plus or minus 2 points between their proportion and the area proportion of the land cover classes. 
+
+
+```{r compa, echo=F}
+
+simple_res <- area_lc %>%
+  mutate(area_kha = round(as.numeric(area_ha) / 1000, 2)) %>%
+  select(-area_ha) %>%
+  left_join(nplot4 %>% rename(n_sys4 = n), by = "lc") %>%
+  left_join(nplot_rd %>% rename(n_rd = n), by = "lc") %>%
+  #left_join(nplot4_uneven %>% rename(n_un4 = n), by = "lc") %>%
+  mutate(n_rd = replace_na(n_rd, 0)) %>%
+  filter(lc %in% c("EV", "MD", "DD", "WL", "MG"))
+
+simple_tot <- simple_res %>%
+  summarise(across(where(is.numeric), sum)) %>%
+  mutate(lc = "Total") %>% 
+  select(lc, everything())
+  
+kab <- simple_res %>%
+  mutate(
+    p_area = as.numeric(round(area_kha / simple_tot$area_kha * 100)),
+    p_sys4 = round(n_sys4 / simple_tot$n_sys4 * 100),
+    p_rd   = round(n_rd / simple_tot$n_rd * 100),
+  ) %>%
+  bind_rows(simple_tot %>% mutate(p_area = 100, p_sys4 = 100, p_rd = 100)) %>%
+  select(lc, area_kha, p_area, n_sys4, p_sys4, n_rd, p_rd)
+
+kab_opt <- list(
+  x = kab,
+  caption = "Area and percentage of plots in each forest land cover.",
+  col.names = c("Land cover", "Area", "perc.",  rep(c("# plots", "perc."), 2)),
+  #align = "ccccccccccccc",
+  booktabs = TRUE,
+  escape = F
+  )
+
+if (book_format %in% c("html", "latex")) {
+  
+  display_table() %>%
+  add_header_above(c(
+    " " = 1,
+    "Area (kha)" = 2, 
+    "Systematic sampling" = 2, 
+    "Random sampling" = 2
+  ))
+
+} else {
+  
+  display_table()
+  
+}
+
+```
+
+
+Let's refer back to the **NFI eLearning Module 3: Sampling**. The differences between these sampling methods do not translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
+
+::::::{.question data-latex=""}
+
+Which of the following assertions are true?
+
+1. Simple random sampling (SRS) is not suitable because you have no control over plot distribution.
+1. **SRS is less suitable than systematic sampling methods as SRS presents a higher chance of autocorrelation.**
+1. **Systematic sampling consists of one sample, it only borrows SRS stats because they are considered conservative.**
+
+::::::
+
+
