@@ -118,8 +118,8 @@ sf_exfi <- st_sample(x = sf_lc1 %>% filter(id == 406), size = 10) %>%
   mutate(id = 1:10) %>%
   bind_cols(exfi_pagb)
 
-tmap_mode("view")
-tm_shape(sf_lc1) + tm_polygons(col = "lc", palette = palette1, popup.vars = c("lc", "id"), border.alpha = 0) +
-tm_shape(sf_exfi) + tm_dots(col = "plot_agb", size = 0.1)
+# tmap_mode("view")
+# tm_shape(sf_lc1) + tm_polygons(col = "lc", palette = palette1, popup.vars = c("lc", "id"), border.alpha = 0) +
+# tm_shape(sf_exfi) + tm_dots(col = "plot_agb", size = 0.1)
 
 
