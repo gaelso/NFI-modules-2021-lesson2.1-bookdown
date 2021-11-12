@@ -4,7 +4,7 @@ subtitle: |
   | Lesson 2: Simple sampling for carbon
   | Part 1: Sampling design 
 author: ""
-date: "Handbook with solutions - Version 1.0 - October 2021"
+date: "Handbook with solutions - Version 0.3 - October 2021"
 subject: "copyright to be defined"
 keywords: "national forest inventory, biomass, sampling design, statistical sampling, allometric equations, wood density, data analysis"
 documentclass: article
