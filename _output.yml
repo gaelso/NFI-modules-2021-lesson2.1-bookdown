@@ -5,9 +5,9 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./index.html"><b>NFI eLearning Practice Lesson 2.1</b></a></li>
+        <li><a href="./index.html"><b>NFI eLearning Practice L2.1</b></a></li>
       after: |
-        <li><a href="https://rise.articulate.com/share/R7P0qbZvrtsqIOshAMhXz1RzNXkrGlSc#/" target="blank"><b>NFI eLearning modules</b></a></li>
+        <li><a href="https://bit.ly/3m5VEsE" target="blank"><b>NFI eLearning modules</b></a></li>
 #        <li><a href="https://github.com/rstudio/bookdown" target="blank"><i>Published with bookdown</i></a></li>
     search:
       engine: fuse

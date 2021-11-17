@@ -1,11 +1,11 @@
 ---
-title: "NFI eLearning Practice Simulation"
+title: "NFI eLearning Practice Module"
 subtitle: |
   | Lesson 2: Simple sampling for carbon
   | Part 1: Sampling design 
 author: ""
-date: "Handbook with solutions - Version 0.3 - October 2021"
-subject: "copyright to be defined"
+date: "Handbook with solutions - Version 1.0 - October 2021"
+#subject: "copyright to be defined"
 keywords: "national forest inventory, biomass, sampling design, statistical sampling, allometric equations, wood density, data analysis"
 documentclass: article
 fontsize: 12pt
@@ -47,72 +47,39 @@ if (book_format %in% c("html", "latex")) {
 ```
 
 
-<!-- ADD COVER PAGE TO HTML OUTPUT -->
-<!-- `r if (book_format == "html") ' -->
-# Cover page {-}
-<!-- '` -->
-
-
+# Welcome {-}
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
+```{asis index-2, echo=knitr::is_html_output()}
+
+<txt-green>Welcome to the second lesson</txt-green> of the National Forest Inventory eLearning practice module.
+
+
 \  
 
-```{r img-cover, echo=F, out.width='50%', fig.asp=0.5, fig.align='center', fig.pos = 'H'}
+<img src="data/louland/lc-image.png" width="600" height="600" alt="The geocompr book cover" align="right" style="margin: 0 2em 2em 2em" />
 
-knitr::include_graphics(path = "data/louland/lc-grid10-image.png")
+\  
+
+This interactive module is designed to complement the National Forest Inventory eLearning Modules with practical, hands-on exercises. As you learned in lesson one, these exercises take place on a fictional island that just emerged in the middle of the Atlantic Ocean: `Louland`.
+
+\ 
+
+The practice module features interactive lessons designed to practice National Forest Inventory (NFI) sampling and the exploratory analysis of NFI field data with the [R programming language](www.r-project.com). Although this fictional land is not an official country, we will use the acronym NFI when referring to its forest inventory as the method and formulas applied here are valid for nationwide forest inventories.
+
+\  
+
+Lesson 2 focuses on several sampling methods that we call "simple sampling" as they are based on the <txt-green>simple random sampling statistics</txt-green>. 
+
+\ 
+
+\  
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+<br />
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 
 ```
-
-\  
-
-\  
-
-\  
-
-\newpage
-
-
-**NFI eLearning Practice Simulation**
-
-**Lesson 2: Simple sampling for carbon**
-
-**Part 1: Sampling design**
-
-\  
-
-*ADD Authors*
- FAO, Göttingen
-
-\  
-
-*ADD Recommended citation*
-Authors, Interactive training modules on National Forest Inventory data analysis - handbook with solutions, Food and Agricultural Organization of the United Nations, Rome.
-
-\  
-
-*ADD Disclaimer*
-
-\ 
-
-*ADD license*
-
-*Recommendation: CC NC SA 4 for the book, MIT for the code, Underlying data `r ifelse(book_format == "latex", "\\copyright\\ ", "&copy; ")`FAO, 2021.*
-
-\ 
-
-*ADD Photo credit*
-
-
-
-
-\newpage
-
-
-\tableofcontents
-
-\listoffigures
-
-\listoftables
 
 

@@ -22,6 +22,27 @@
 \usepackage{multirow}
 
 
+%% Multi column support
+\newenvironment{cols}[1][]{}{}
+
+\newenvironment{col}[1]{\begin{minipage}{#1}\ignorespaces}{%
+\end{minipage}
+\ifhmode\unskip\fi
+\aftergroup\useignorespacesandallpars}
+
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
+
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother
+
+
+
 %% Stop make title from placing YAML title before the cover page
 % \let\oldmaketitle\maketitle
 % \AtBeginDocument{\let\maketitle\relax}
