@@ -11,16 +11,6 @@
 ## Recalculate objects from lesson 1 ########################################
 ##
 
-## Setup
-newland_name <- "Louland"
-
-sf_lc     <- sf_lc1
-sf_admin  <- sf_adm1
-sf_topo   <- sf_topo1
-path_data <- "data/louland"
-pal       <- palette1
-
-
 
 ## Recalc AGB
 exfi_agb2 <- exfi_pagb %>%

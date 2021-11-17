@@ -82,3 +82,16 @@ print(gr_lc)
 # tmap_options(check.and.fix = TRUE)
 # tm_shape(sf_lc1) + tm_polygons(col = "lc", palette = palette1, popup.vars = c("lc", "id"))
 
+
+
+##
+## Assign data from lesson 2.1 ##############################################
+##
+
+newland_name <- "Louland"
+
+sf_lc     <- sf_lc1
+sf_admin  <- sf_adm1
+sf_topo   <- sf_topo1
+path_data <- "data/louland"
+pal       <- palette1
