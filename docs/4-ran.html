@@ -182,19 +182,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ran" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Random Sampling</h1>
-<p>Complete simple random sampling (SRS) designs have a number of disadvantages and are generally not recommended at a national scale. We will still relocate our <code>558</code> plots randomly to compare different sampling designs.</p>
+<p>Complete simple random sampling (SRS) designs have a number of disadvantages and are generally not recommended at a national scale. We will still relocate our <code>318</code> plots randomly to compare different sampling designs.</p>
 <div id="demo" class="section level2 unnumbered">
 <h2>Demo</h2>
-<p>The equivalent of <code>st_make_grid()</code> for random sampling is <code>st_sample()</code>. Every time <code>st_sample()</code> is used a new set of random locations is created. To get the same random allocation every time we run the code, we need to set a “seed” and the function <code>set.seed()</code>. In the example we will use <code>set.seed(10)</code> but feel free to change or remove at will the chose seed number in the practice below.</p>
+<p>The equivalent of the function <code>st_make_grid()</code> for random sampling is <code>st_sample()</code>. Every time the function <code>st_sample()</code> is used a new set of random locations is created. To get the same random allocation every time we run the code, we need to set a “seed” using the function <code>set.seed()</code>. In the following example, we will use <code>set.seed(10)</code> but feel free to change or remove at will the chose seed number in the practice below.</p>
 <p> </p>
 <div class="infobox">
 <p>As the plot locations are completely random, we have no control over how many plots are going to land on forest versus non-forest land. We can apply two possible strategies to reach our target number of plots inside forest land:</p>
 <ol style="list-style-type: decimal">
 <li>Filter out non-forest polygons and make the sample size equal to the total number of plots in forest land from our 4 x 4 km sampling grid <code>nplot4_total$n</code>.</li>
-<li>Make the sampling size equal to the original number of points in a 4 x 4 km grid <code>nrow(sf_points4)</code> and accept that the final number of plots may be slightly different from the previous systematic sampling.</li>
+<li>Make the sampling size equal to the original number of points in a 4 x 4 km grid <code>nrow(sf_points4)</code>, and accept that the final number of plots may be slightly different from the previous systematic sampling.</li>
 </ol>
-<p>We can anticipate that the second solution is better if you are also interested in non-forest land, although there is no guarantee you will have enough plots in each land cover. We will favor option 1 as our primary target is forest carbon stock.</p>
-<p>As <code>sf</code> objects behave similarly to tibbles, the tidyverse function <code>filter()</code> will allow us to prepare a forest only shapefile. To do so, we we filter only the forest types from the original land cover <code>sf</code> object.</p>
+<p>We can anticipate that the second solution is better if you are also interested in non-forest land, although there is no guarantee you will have enough plots in each land cover type. Here, we will favor option 1, as our primary target is forest carbon stock.</p>
+<p>As <code>sf</code> objects behave similarly to tibbles, the tidyverse function, <code>filter()</code>, will allow us to prepare a forest only shapefile. To do so, we we filter only the forest types from the original land cover <code>sf</code> object.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="4-ran.html#cb68-1" aria-hidden="true" tabindex="-1"></a>sf_forest <span class="ot">&lt;-</span> sf_lc <span class="sc">%&gt;%</span></span>
 <span id="cb68-2"><a href="4-ran.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lc <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;EV&quot;</span>, <span class="st">&quot;MD&quot;</span>, <span class="st">&quot;DD&quot;</span>, <span class="st">&quot;WL&quot;</span>, <span class="st">&quot;MG&quot;</span>))</span></code></pre></div>
 </div>
@@ -228,11 +228,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="Rout-demo"><code># A tibble: 5 x 2
   lc        n
   &lt;fct&gt; &lt;int&gt;
-1 WL       93
-2 DD       51
-3 MD      108
-4 EV       54
-5 MG        7</code></pre>
+1 WL       91
+2 DD       35
+3 MD      121
+4 EV       56
+5 MG       15</code></pre>
 <p> </p>
 </div>
 <div id="practice" class="section level2 unnumbered">
@@ -298,25 +298,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb81-4"><a href="4-ran.html#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(lc) <span class="sc">%&gt;%</span></span>
 <span id="cb81-5"><a href="4-ran.html#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
 <span id="cb81-6"><a href="4-ran.html#cb81-6" aria-hidden="true" tabindex="-1"></a>nplot_rd2</span></code></pre></div>
-<pre class="Rout-sol"><code># A tibble: 6 x 2
+<pre class="Rout-sol"><code># A tibble: 7 x 2
   lc        n
   &lt;fct&gt; &lt;int&gt;
-1 NF      136
-2 WL      125
-3 DD       57
-4 MD      151
-5 EV       80
-6 MG        9</code></pre>
+1 WA        2
+2 NF      144
+3 WL      127
+4 DD       63
+5 MD      156
+6 EV       78
+7 MG        6</code></pre>
 <p> </p>
-<p>Well done! In the next section, will compare the plot distribution between random and systematic sampling.</p>
+<p>Well done! In the next section, we will compare the plot distribution between random and systematic sampling.</p>
 <p> </p>
 </div>
 <div id="proportion-of-plots-per-forest-type" class="section level2 unnumbered">
 <h2>Proportion of plots per forest type</h2>
-<p>Let’s compare how many plots fell in each land cover class of Louland between systematic and simple random sampling (Table <a href="4-ran.html#tab:compa">4.1</a>). We can see that our two simple sampling methods gave similar plot allocation per land cover. There is plus or minus 2 points between their proportion and the area proportion of the land cover classes.</p>
+<p>Let’s compare how many plots fell within each of Louland’s land cover classes, between systematic and simple random sampling (Table <a href="4-ran.html#tab:compa">4.1</a>). We can see that our two simple sampling methods gave similar plot allocation per land cover class. There is plus or minus 2 points between their proportion and the area proportion of the land cover classes.</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:compa">Table 4.1: </span>Area and percentage of plots in each forest land cover.
+<span id="tab:compa">Table 4.1: </span>Area and percentage of plots in each forest land cover class.
 </caption>
 <thead>
 <tr>
@@ -374,16 +375,16 @@ WL
 30
 </td>
 <td style="text-align:right;">
-89
+92
 </td>
 <td style="text-align:right;">
-28
+29
 </td>
 <td style="text-align:right;">
-93
+91
 </td>
 <td style="text-align:right;">
-30
+29
 </td>
 </tr>
 <tr>
@@ -397,16 +398,16 @@ DD
 13
 </td>
 <td style="text-align:right;">
-44
+41
 </td>
 <td style="text-align:right;">
-14
+13
 </td>
 <td style="text-align:right;">
-51
+35
 </td>
 <td style="text-align:right;">
-16
+11
 </td>
 </tr>
 <tr>
@@ -420,16 +421,16 @@ MD
 37
 </td>
 <td style="text-align:right;">
-116
+123
 </td>
 <td style="text-align:right;">
-37
+39
 </td>
 <td style="text-align:right;">
-108
+121
 </td>
 <td style="text-align:right;">
-35
+38
 </td>
 </tr>
 <tr>
@@ -443,16 +444,16 @@ EV
 18
 </td>
 <td style="text-align:right;">
-58
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:right;">
 54
 </td>
 <td style="text-align:right;">
 17
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+18
 </td>
 </tr>
 <tr>
@@ -466,16 +467,16 @@ MG
 2
 </td>
 <td style="text-align:right;">
-6
+8
 </td>
 <td style="text-align:right;">
-2
+3
 </td>
 <td style="text-align:right;">
-7
+15
 </td>
 <td style="text-align:right;">
-2
+5
 </td>
 </tr>
 <tr>
@@ -489,13 +490,13 @@ Total
 100
 </td>
 <td style="text-align:right;">
-313
+318
 </td>
 <td style="text-align:right;">
 100
 </td>
 <td style="text-align:right;">
-313
+318
 </td>
 <td style="text-align:right;">
 100
@@ -503,7 +504,7 @@ Total
 </tr>
 </tbody>
 </table>
-<p>Let’s refer back to the <strong>NFI eLearning Module 3: Sampling</strong>. The differences between these sampling methods do not translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.</p>
+<p>Let’s refer back to <strong>NFI eLearning Module 3: Sampling</strong>. The differences between these sampling methods do not translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.</p>
 <div class="question">
 <p>Which of the following assertions are true?</p>
 <ol style="list-style-type: decimal">
@@ -512,7 +513,6 @@ Total
 <li><strong>Systematic sampling consists of one sample, it only borrows SRS stats because they are considered conservative.</strong></li>
 </ol>
 </div>
-<p> </p>
 
 <div style="page-break-after: always;"></div>
 </div>

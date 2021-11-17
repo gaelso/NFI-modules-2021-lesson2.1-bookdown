@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sys3" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Systematic sampling: 3 x 3 km grid</h1>
-<p>This section is optional. If you wish to practice more the grid creation commands, or if you are curious to know how many forest plots we would have with a 3 x 3 km grid, complete the exercises below, otherwise you can skip directly to the next session.</p>
+<p>This section is optional. If you wish to practice more grid creation commands, or if you are curious to know how many forest plots we would have with a 3 x 3 km grid, complete the exercises below, otherwise you can skip directly to the next session.</p>
 <p><strong>In the following console boxes, create <code>sf_point3</code>, <code>sf_plot3</code>, <code>nplot3</code> and <code>nplot3_total</code> for creating a 3 x 3 km grid (we skip the grid itself to start directly with the points):</strong></p>
 <ul>
 <li>Points with the option <code>what = "center"</code>.</li>
@@ -220,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="Handbook_files/figure-html/ggplot3-sol-1.png" width="80%" style="display: block; margin: auto;" /></p>
 <p> </p>
 <ul>
-<li>Calculate the number of plot per land cover class using <code>group_by()</code> and <code>summarise()</code>.</li>
+<li>Calculate the number of plots per land cover class using the <code>group_by()</code> and <code>summarise()</code> functions.</li>
 </ul>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb62-1"><a href="3-sys3.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb62-2"><a href="3-sys3.html#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
@@ -233,13 +233,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="Rout-sol"><code># A tibble: 7 x 2
   lc        n
   &lt;fct&gt; &lt;int&gt;
-1 WA        6
+1 WA        4
 2 NF      172
-3 WL      159
-4 DD       82
-5 MD      204
-6 EV      103
-7 MG       10</code></pre>
+3 WL      180
+4 DD       68
+5 MD      215
+6 EV       96
+7 MG       17</code></pre>
 <p> </p>
 <ul>
 <li>Finally calculate the total number of plots in forest land.</li>
@@ -253,8 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="Rout-sol"><code># A tibble: 1 x 1
       n
   &lt;int&gt;
-1   558</code></pre>
-<p> </p>
+1   576</code></pre>
 
 <div style="page-break-after: always;"></div>
 </div>

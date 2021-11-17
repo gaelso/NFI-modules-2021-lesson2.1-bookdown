@@ -24,6 +24,8 @@ tmap_options(check.and.fix = TRUE)
 ## Tidy data
 library(tidyverse)
 
+## Misc
+library(scales)
 
 ## Add fonts
 library(extrafont)

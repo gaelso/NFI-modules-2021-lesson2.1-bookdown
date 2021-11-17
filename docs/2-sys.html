@@ -182,16 +182,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sys" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Systematic sampling</h1>
-<p>Now let’s see what sampling grid spacing is the closest to a sampling size of 281 plots, the number of selected plots selected with our budget constraint. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.</p>
+<p>Now let’s see what sampling grid spacing is the closest to a sampling size of 281 plots, the number of plots selected with our budget constraint. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.</p>
 <p> </p>
 <div id="grid-spacing" class="section level2 unnumbered">
 <h2>Grid spacing</h2>
-<p>To calculate the grid spacing corresponding to our sampling size, first we divide forest area by sampling size to have the an estimate of the area that each sample point represent. For a square grid, the square root of this division gives the grid spacing. For example, for a 1,000 ha forest and a sampling size of 20 plots, the grid size will be:</p>
+<p>To calculate the grid spacing that corresponds to our sampling size, we must first divide forest area by sampling size to obtain an estimate of the area that each sample point represents. For a square grid, the square root of this division gives the grid spacing. For example, for a 1,000 ha forest and a sampling size of 20 plots, the grid size will be:</p>
 <p><span class="math display">\[d = \sqrt{\frac{1000 ha}{20}} = \sqrt{50ha} = \sqrt{500000m^2} \approx 707.1m\]</span></p>
-<p>In our case, we can calculate the forest area of Louland from the table <code>area_lc</code> calculated in Lesson 1. We need to (1) filter forested land cover classes with <code>filter()</code>, (2) extract their area with <code>pull()</code> and (3) sum their area.</p>
-<p><strong>Your turn! Use the console below to create the object <code>area_forest</code> that contain the total forest area.</strong></p>
-<p>Remember that our land cover classes are coded <code>EV</code>, <code>MD</code>, <code>DD</code>, <code>MG</code>, <code>WL</code>, <code>NF</code> and <code>WA</code> for Evergreen, Mixed Deciduous,
-Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
+<p>In our case, we can calculate the forest area of Louland from the table, <code>area_lc</code>, calculated in Lesson 1. We need to (1) filter forested land cover classes with the function <code>filter()</code>, (2) extract their area with the function <code>pull()</code> and (3) sum their area.</p>
+<p><strong>Your turn! Use the console below to create the object, <code>area_forest</code>, which contains the total forest area.</strong></p>
+<p>Remember that our land cover classes are coded <code>EV</code>, <code>MD</code>, <code>DD</code>, <code>MG</code>, <code>WL</code>, <code>NF</code> and <code>WA</code> for Evergreen, Mixed Deciduous, Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb16-1"><a href="2-sys.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb16-2"><a href="2-sys.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb17-1"><a href="2-sys.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tips</span></span>
@@ -217,7 +216,7 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <span id="cb21-2"><a href="2-sys.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="2-sys.html#cb21-3" aria-hidden="true" tabindex="-1"></a>area_forest_km2 </span></code></pre></div>
 <pre class="Rout-demo"><code>[1] 5023.401</code></pre>
-<p>Finally, we can apply the grid spacing formula with the square root function <code>sqrt()</code> and the sampling size for a 10% precision <code>n10</code>. Complete the following code sequence to calculate the grid spacing.</p>
+<p>Finally, we can apply the grid spacing formula with the square root function <code>sqrt()</code>, and the sampling size for a 10% precision, <code>n10</code>. Complete the following code sequence to calculate the grid spacing.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb23-1"><a href="2-sys.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb23-2"><a href="2-sys.html#cb23-2" aria-hidden="true" tabindex="-1"></a>grid_spacing <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sqrt</span>(___ <span class="sc">/</span> ___), <span class="dv">3</span>)</span>
 <span id="cb23-3"><a href="2-sys.html#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -227,10 +226,10 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <span id="cb24-3"><a href="2-sys.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="2-sys.html#cb24-4" aria-hidden="true" tabindex="-1"></a>grid_spacing</span></code></pre></div>
 <pre class="Rout-sol"><code>[1] 4.228</code></pre>
-<p>The result is a grid spacing slightly larger than 4 km. We need to note here that the number of plot falling on forest land might differ from this hypothetical value, depending on the forest distribution. We need to create the grid and calculate how many plots are located on forest land to cross check that the grid spacing fits our desired cost/precision sampling size. Even after this confirmation, there can be mapping errors and several plots confirmed to be located on forest land may not be forested.</p>
+<p>The result is a grid spacing slightly larger than 4km. We must note here that the number of plots falling on forest land might differ from this hypothetical value, depending on the forest distribution. We need to create the grid and calculate how many plots are located on forest land in order to cross check that the grid spacing fits our desired cost/precision sampling size. Even after this confirmation, there can be mapping errors and several plots confirmed to be located on forest land that may not be actually forested.</p>
 <p> </p>
 <div class="infobox">
-<p>To help you become familiar with the R code, we will demonstrate the sequence of commands to create the grid, map it and calculate the number of plots per land cover class on a 5 x 5 km grid for the sake of demonstration and we will let you develop the 4 x 4 km grid through guided exercises.</p>
+<p>To help you become familiar with the R code, we will demonstrate the sequence of commands to create the grid, map it and calculate the number of plots per land cover class on a 5 x 5 km grid and we will let you develop the 4 x 4 km grid through guided exercises.</p>
 </div>
 <p> </p>
 </div>
@@ -242,17 +241,21 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <span id="cb26-2"><a href="2-sys.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
 <p> </p>
 <div class="infobox">
-<p>We will also offset the grid starting point 1 km southwards and 1 km westwards of the land most Southern and Western point to avoid having too many plots at the edge of the land. This is a precaution specific for this exercise, as <code>Louland</code> shape is close to a square, and may not be needed in a real country! The <code>offset</code> is calculated based on the land cover shapefile bounding box calculated with <code>st_bbox()</code>.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="2-sys.html#cb27-1" aria-hidden="true" tabindex="-1"></a>offset <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(sf_lc)[<span class="fu">c</span>(<span class="st">&quot;xmin&quot;</span>, <span class="st">&quot;ymin&quot;</span>)] <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1000</span>, <span class="sc">-</span><span class="dv">1000</span>)</span></code></pre></div>
+<p>By default, the grid starting point is the land most Southern and Western point. Systematic sampling designs are considered to be random samples of size one as only the starting point of their grid is chosen randomly. To get a random starting point so, we will chose randomly an integer value between 500 meters and 2 km. We start at 500m to avoid having too many plots at the edge of the land. This is a precaution specific for this exercise, as <code>Louland</code>’s shape is close to a square. This precaution may not be needed in a real country! The <code>offset</code> is calculated based on the land cover shapefile bounding box calculated with <code>st_bbox()</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="2-sys.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb27-2"><a href="2-sys.html#cb27-2" aria-hidden="true" tabindex="-1"></a>random_x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">500</span><span class="sc">:</span><span class="dv">2000</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb27-3"><a href="2-sys.html#cb27-3" aria-hidden="true" tabindex="-1"></a>random_y <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">500</span><span class="sc">:</span><span class="dv">2000</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb27-4"><a href="2-sys.html#cb27-4" aria-hidden="true" tabindex="-1"></a>offset <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(sf_lc)[<span class="fu">c</span>(<span class="st">&quot;xmin&quot;</span>, <span class="st">&quot;ymin&quot;</span>)] <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span>random_x, <span class="sc">-</span>random_y)</span></code></pre></div>
 </div>
 <p> </p>
 <div id="how-to-create-grids" class="section level3 unnumbered">
 <h3>How to create grids</h3>
-<p>To create a 5 x 5 km grid we will fill the input <code>cellsize</code> with <code>c(5000, 5000)</code> as the unit is meters, and to make the grid we use the option <code>what = "polygon"</code>.</p>
+<p>To create a 5 x 5 km grid, we will fill the input <code>cellsize</code> with <code>c(5000, 5000)</code> as the unit is meters, and to make the grid we use the option <code>what = "polygon"</code>.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="2-sys.html#cb28-1" aria-hidden="true" tabindex="-1"></a>sf_grid5 <span class="ot">&lt;-</span> <span class="fu">st_make_grid</span>(sf_lc, <span class="at">cellsize =</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">5000</span>), <span class="at">what =</span> <span class="st">&quot;polygons&quot;</span>, <span class="at">offset =</span> offset) <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="2-sys.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(sf_admin) <span class="sc">%&gt;%</span></span>
 <span id="cb28-3"><a href="2-sys.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span></code></pre></div>
-<p><strong>You turn! Adapt the above code to create <code>sf_grid4</code>, the 4 x 4 km grid.</strong></p>
+<p> </p>
+<p><strong>Your turn! Adapt the above code to create <code>sf_grid4</code>, the 4 x 4 km grid.</strong></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb29-1"><a href="2-sys.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb29-2"><a href="2-sys.html#cb29-2" aria-hidden="true" tabindex="-1"></a>sf_grid4 <span class="ot">&lt;-</span> <span class="fu">st_make_grid</span>(sf_lc, <span class="at">cellsize =</span> <span class="fu">c</span>(___, ___), <span class="at">what =</span> ___, <span class="at">offset =</span> ___) <span class="sc">%&gt;%</span></span>
 <span id="cb29-3"><a href="2-sys.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(sf_admin) <span class="sc">%&gt;%</span></span>
@@ -265,11 +268,12 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 </div>
 <div id="how-to-create-aligned-sampling-points" class="section level3 unnumbered">
 <h3>How to create aligned sampling points</h3>
-<p>To create the points we change the option to <code>what = "center"</code> (replace <code>"center"</code> with <code>"corner"</code> to locate the points at the grid intersections). At this stage, we can also use <code>st_intersection()</code> to reduce the grid to our ‘country’ boundaries and the function <code>st_as_sf()</code> converts the result of the intersection to an <code>sf</code> object.</p>
+<p>To create the points, we change the option to <code>what = "center"</code> (replace <code>"center"</code> with <code>"corner"</code> to locate the points at the grid intersections). At this stage, we can also use the function <code>st_intersection()</code> to reduce the grid to our ‘country’ boundaries and the function <code>st_as_sf()</code> converts the result of the intersection to an <code>sf</code> object.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="2-sys.html#cb31-1" aria-hidden="true" tabindex="-1"></a>sf_points5 <span class="ot">&lt;-</span> <span class="fu">st_make_grid</span>(sf_lc, <span class="at">cellsize =</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">5000</span>), <span class="at">what =</span> <span class="st">&quot;centers&quot;</span>, <span class="at">offset =</span> offset) <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="2-sys.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(sf_admin) <span class="sc">%&gt;%</span></span>
 <span id="cb31-3"><a href="2-sys.html#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span></code></pre></div>
-<p><strong>You turn! Prepare <code>sf_point4</code>, the points’ location on the 4 x 4 k grid.</strong></p>
+<p> </p>
+<p><strong>Your turn! Prepare <code>sf_point4</code>, the points’ location on the 4 x 4 k grid.</strong></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb32-1"><a href="2-sys.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb32-2"><a href="2-sys.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb33-1"><a href="2-sys.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tips</span></span>
@@ -281,11 +285,12 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <span id="cb34-3"><a href="2-sys.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_intersection</span>(sf_admin) <span class="sc">%&gt;%</span></span>
 <span id="cb34-4"><a href="2-sys.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span></code></pre></div>
 <p> </p>
-<p>We can finally overlap the point grid with the land cover layer with <code>st_join()</code> to assign land cover to each plot. We aim for our land cover code <code>lc</code> to appear in a certain order in the map. To follow the order of the land cover numerical ID <code>lc_id</code> we use the function <code>fct_reorder</code> from the tidyverse package <code>forcats</code>. This function convert a text variable into an ordered factor following an other variable (<code>lc_id</code> in our case).</p>
+<p>We can finally overlap the grid points with the land cover layer, using the function <code>st_join()</code>, to assign land cover to each plot. We aim for our land cover code <code>lc</code> to appear in a certain order in the map. To follow the order of the land cover numerical ID <code>lc_id</code>, we use the function <code>fct_reorder()</code> from the tidyverse package <code>forcats</code>. This function converts a text variable into an ordered factor following an other variable (in our case <code>lc_id</code>).</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="2-sys.html#cb35-1" aria-hidden="true" tabindex="-1"></a>sf_plot5 <span class="ot">&lt;-</span> sf_points5 <span class="sc">%&gt;%</span></span>
 <span id="cb35-2"><a href="2-sys.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(sf_lc) <span class="sc">%&gt;%</span></span>
 <span id="cb35-3"><a href="2-sys.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lc =</span> <span class="fu">fct_reorder</span>(lc, lc_id)) <span class="sc">%&gt;%</span></span>
 <span id="cb35-4"><a href="2-sys.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lc))</span></code></pre></div>
+<p> </p>
 <p><strong>Your turn! Adapt the above code to prepare <code>sf_plot4</code>, joining the points location and the land cover class spatial data.</strong></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb36-1"><a href="2-sys.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb36-2"><a href="2-sys.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
@@ -307,12 +312,12 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <p>We can visualize the grid with the following code based on the <code>ggplot2</code> package and its <code>geom_sf()</code> function to display <code>sf</code> objects.</p>
 <p> </p>
 <div class="infobox">
-<p>We have a custom color palette <code>pal</code> for <code>Louland</code> land covers. We can see this color palette with the function <code>show_col()</code> from the <code>scales</code> package</p>
+<p>We have a custom color palette <code>pal</code> for <code>Louland</code> land covers. We can see this color palette with the function <code>show_col()</code>, from the <code>scales</code> package</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="2-sys.html#cb39-1" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;#73c2fb&quot;</span>, <span class="st">&quot;#edf5e1&quot;</span>, <span class="st">&quot;#ffcb9a&quot;</span>, <span class="st">&quot;#5cdb95&quot;</span>, <span class="st">&quot;#379683&quot;</span>, <span class="st">&quot;#00743f&quot;</span>, <span class="st">&quot;#012172&quot;</span>)</span>
 <span id="cb39-2"><a href="2-sys.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="2-sys.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb39-4"><a href="2-sys.html#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">show_col</span>(pal)</span></code></pre></div>
-<p><img src="Handbook_files/figure-html/pal-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p><img src="Handbook_files/figure-html/pal-1.png" width="50%" style="display: block; margin: auto;" /></p>
 </div>
 <p> </p>
 <p>Here is the code to make the map with the 5 x 5 km systematic sampling design.</p>
@@ -325,6 +330,7 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <span id="cb40-7"><a href="2-sys.html#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;&quot;</span>, <span class="at">color =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
 <span id="cb40-8"><a href="2-sys.html#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
 <p><img src="Handbook_files/figure-html/ggplot5-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p> </p>
 <p><strong>It’s looking good! Adapt this code to make the same map with the 4 x 4 km grid.</strong></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb41-1"><a href="2-sys.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb41-2"><a href="2-sys.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
@@ -351,7 +357,7 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 </div>
 <div id="calculate-the-number-of-plots-per-land-cover-class" class="section level2 unnumbered">
 <h2>Calculate the number of plots per land cover class</h2>
-<p>To calculate the number of plots in each land cover class, we need to group the plots by land cover with <code>group_by()</code>, then count them with <code>summarise()</code> (remember lesson 1) and the function <code>n()</code>. <code>n()</code> counts the number of rows in a table or in each category of a category variable. As we don’t need the spatial information, we first convert our <code>sf</code> object to a tibble with <code>as_tibble()</code>.</p>
+<p>To calculate the number of plots in each land cover class, we need to group the plots by land cover with the function <code>group_by()</code>, then count them with the function <code>summarise()</code> (remember lesson 1) and the function <code>n()</code>. The function <code>n()</code> counts the number of rows in a table or in each category of a category variable. As we don’t need the spatial information, we first convert our <code>sf</code> object to a tibble with the function <code>as_tibble()</code>.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="2-sys.html#cb44-1" aria-hidden="true" tabindex="-1"></a>nplot5 <span class="ot">&lt;-</span> sf_plot5 <span class="sc">%&gt;%</span></span>
 <span id="cb44-2"><a href="2-sys.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb44-3"><a href="2-sys.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(lc) <span class="sc">%&gt;%</span></span>
@@ -360,13 +366,14 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <pre class="Rout-demo"><code># A tibble: 7 x 2
   lc        n
   &lt;fct&gt; &lt;int&gt;
-1 WA        1
-2 NF       68
-3 WL       53
-4 DD       32
-5 MD       78
-6 EV       32
-7 MG        5</code></pre>
+1 WA        2
+2 NF       63
+3 WL       62
+4 DD       23
+5 MD       73
+6 EV       40
+7 MG        4</code></pre>
+<p> </p>
 <p><strong>Your turn! Calculate the number of plots per land cover class with the 4 x 4 km grid</strong></p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb46-1"><a href="2-sys.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb46-2"><a href="2-sys.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
@@ -386,14 +393,14 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
   lc        n
   &lt;fct&gt; &lt;int&gt;
 1 WA        2
-2 NF      108
-3 WL       89
-4 DD       44
-5 MD      116
-6 EV       58
-7 MG        6</code></pre>
+2 NF      101
+3 WL       92
+4 DD       41
+5 MD      123
+6 EV       54
+7 MG        8</code></pre>
 <p> </p>
-<p>Last step, to get the total number of forest plots we need to filter out non-forest categories with <code>filter()</code> and sum up the remaining number of plots.</p>
+<p>Last step, to get the total number of forest plots, we need to filter out non-forest categories with the function <code>filter()</code> and sum up the remaining number of plots.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="2-sys.html#cb50-1" aria-hidden="true" tabindex="-1"></a>nplot5_total <span class="ot">&lt;-</span> nplot5 <span class="sc">%&gt;%</span></span>
 <span id="cb50-2"><a href="2-sys.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(lc <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;WA&quot;</span>, <span class="st">&quot;NF&quot;</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb50-3"><a href="2-sys.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n))</span>
@@ -401,7 +408,8 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <pre class="Rout-demo"><code># A tibble: 1 x 1
       n
   &lt;int&gt;
-1   200</code></pre>
+1   202</code></pre>
+<p> </p>
 <p><strong>Your turn! Calculate the total number of forest plots in the 4 x 4 km grid.</strong></p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r Rchunk-cons"><code class="sourceCode r"><span id="cb52-1"><a href="2-sys.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Console</span></span>
 <span id="cb52-2"><a href="2-sys.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span></code></pre></div>
@@ -418,21 +426,20 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <pre class="Rout-sol"><code># A tibble: 1 x 1
       n
   &lt;int&gt;
-1   313</code></pre>
+1   318</code></pre>
 <p> </p>
-<p>Good job! Looking back at the sampling size given by different precision levels, we had <code>281</code> plots for 10% precision and <code>125</code> plots for 15% precision. Our budget is enough to measure around 300 plots, so we can afford an expected precision of 10%. <txt-green>The 4 x 4 km grid</txt-green> anticipates 313 plots in forest land and its exactly what we need and can afford.</p>
+<p>Good job! Looking back at the sampling size given by different precision levels, we had <code>281</code> plots for 10% precision and <code>125</code> plots for 15% precision. Our budget is enough to measure around 300 plots, so we can afford an expected precision of 10%. <txt-green>The 4 x 4 km grid</txt-green> anticipates 318 plots in forest land and its exactly what we need and can afford.</p>
 <p> </p>
 </div>
 <div id="systematic-sampling-recap" class="section level2 unnumbered">
 <h2>Systematic sampling: Recap</h2>
-<p>Based on the preliminary inventory and few R skills, we have now identified a good sampling grid. To recap the process was:</p>
+<p>Based on the preliminary inventory, and analysing using R skills, we have now identified a good sampling grid. To recap, the process was:</p>
 <ol style="list-style-type: decimal">
-<li>We used the <strong>preliminary forest inventory</strong> results to calculate an hypothetical number of samples required for a desired precision of 5, 10, 15 or 20%.</li>
+<li>We used the <strong>preliminary forest inventory</strong> results to calculate a hypothetical number of samples required for a desired precision of 5, 10, 15 or 20%.</li>
 <li>Based on our available budget we have identified what precision we can afford and how many plots it requires, <em>i.e.</em> our <strong>sampling size</strong>.</li>
 <li>We have then created different <strong>sampling grids</strong> for Louland and estimated how many plots would fall on forest land.</li>
 <li>We have selected the most adequate sampling grid based on our <strong>cost/precision trade-off</strong>.</li>
 </ol>
-<p> </p>
 
 <div style="page-break-after: always;"></div>
 </div>
