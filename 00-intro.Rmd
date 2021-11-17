@@ -5,43 +5,40 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-<txt-green>Welcome to the second lesson</txt-green> of the National Forest Inventory eLearning practice simulation module.
+As we have seen in the NFI eLearning Modules, NFIs are multi-purpose in nature, but the sampling design requires that we focus on one main variable of interest. In this lesson, <txt-green>the main variable of interest is the forest mean aboveground biomass</txt-green> of `r newland_name`. 
 
-This interactive module is designed to complement the National Forest Inventory eLearning Modules with practical hands-on exercises on a fictional island that just emerged in the middle of the Atlantic Ocean: `Louland`. The lesson 2 focuses on several sampling methods that we called "simple sampling" as they are based on the <txt-green>simple random sampling statistics</txt-green>. 
-
-As we have seen in the NFI eLearning Modules, NFIs, more so nowadays, are multi-purpose in nature but the sampling design requires that we focus on one main variable of interest. In this lesson 2, <txt-green>the main variable of interest is the forest mean aboveground biomass</txt-green> of `r newland_name`. 
 Here, we will limit ourselves to random and systematic sampling, and we will obtain aboveground biomass estimates for each forest type through post-stratification.
 
 
 ::::::{.infobox data-latex=""}
 
-If you have not completed lesson 1: *Overview of the preliminary data*, we encourage you to start there. Lesson 1 provides a small overview of `r newland_name` and introduces how you will interact with R consoles embedded in this document.
+If you have not completed lesson 1: *Overview of the preliminary data*, we encourage you to start there. Lesson 1 provides a small overview of `r newland_name` and introduces how you will interact with the R consoles that are embedded in this document.
 
 ::::::
 
-Lesson 2 is divided in two parts:
+Lesson 2 is divided into two parts:
 
 1. Sampling design
 1. Data analysis
 
-We will now start part 1. We will develop a <txt-green>sampling design</txt-green> for estimating the mean carbon stock of `r newland_name`'s forests in ton/ha. The objectives of part 1 are:
+We will now bagin part 1. We will develop a <txt-green>sampling design</txt-green> for estimating the mean carbon stock of `r newland_name`'s forests in ton/ha. The objectives of part 1 are:
 
 - Estimate sample size based on a precision/cost trade-off (cost being simplified to the number of plots that we can afford for now),
-- Find a sampling grid size for a systematic sampling closest to the estimated number of samples. 
+- Find a sampling grid size for a systematic sampling, closest to the estimated number of samples. 
 - Create a simple random sampling with the same number of plots.
 - Compare the distribution of plots per forest category for these two types of simple sampling designs.
 
 
 ::::::{.infobox data-latex=""}
 
-Please note that nowadays many countries do not use these sampling design methods due to several inconveniences. These designs are often not optimal as different sub-populations have different variability and taking it into consideration allows for more optimal designs (See module 3 on Sampling for more information).
+Please note that nowadays many countries do not use these sampling design methods due to several inconveniences. These designs are often not optimal, as different sub-populations have different variability, and taking variability into consideration allows for more optimal designs (See module 3 on Sampling for more information).
 
-However, since the maths for the estimations resulting from these sampling methods are fairly simple, they constitute a good entry point to sampling and we will start from there. More advanced sampling design methods for NFI, i.e stratified and ratio estimators are the focus of other interactive lessons.
+However, since the calculations for the estimations resulting from these sampling methods are fairly simple, they constitute a good entry point to sampling and we will start from there. More advanced sampling design methods for NFI, *i.e.* stratified and ratio estimators, are the focus of other interactive lessons.
 
 ::::::
 
 
-In this lesson we will use the collection of packages grouped inside the package `tidyverse` for general data analysis and the package `sf` for spatial data analysis. We will also briefly use the package `units` to avoid confusion around area units.
+In this lesson, we will use the collection of packages grouped inside the package `tidyverse` for general data analysis and the package `sf` for spatial data analysis. We will also briefly use the package `units` to avoid confusion around area units.
 
 ```{r libs, eval=F}
 

@@ -5,7 +5,7 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-This section is optional. If you wish to practice more the grid creation commands, or if you are curious to know how many forest plots we would have with a 3 x 3 km grid, complete the exercises below, otherwise you can skip directly to the next session.
+This section is optional. If you wish to practice more grid creation commands, or if you are curious to know how many forest plots we would have with a 3 x 3 km grid, complete the exercises below, otherwise you can skip directly to the next session.
 
 **In the following console boxes, create `sf_point3`, `sf_plot3`, `nplot3` and `nplot3_total` for creating a 3 x 3 km grid (we skip the grid itself to start directly with the points):** 
 
@@ -73,7 +73,7 @@ ggplot() +
 
 \  
 
-- Calculate the number of plot per land cover class using `group_by()` and `summarise()`.
+- Calculate the number of plots per land cover class using the `group_by()` and `summarise()` functions.
 
 ```{r nplot3-cons, eval=F, class.source="Rchunk-cons"}
 
@@ -113,4 +113,4 @@ nplot3_total
 
 ```
 
-\  
+

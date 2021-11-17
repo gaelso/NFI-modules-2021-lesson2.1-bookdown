@@ -5,12 +5,12 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-Complete simple random sampling (SRS) designs have a number of disadvantages and are generally not recommended at a national scale. We will still relocate our ```r nplot3_total$n``` plots randomly to compare different sampling designs. 
+Complete simple random sampling (SRS) designs have a number of disadvantages and are generally not recommended at a national scale. We will still relocate our ```r nplot4_total$n``` plots randomly to compare different sampling designs. 
 
 
 ## Demo {-}
 
-The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every time `st_sample()` is used a new set of random locations is created. To get the same random allocation every time we run the code, we need to set a "seed" and the function `set.seed()`. In the example we will use `set.seed(10)` but feel free to change or remove at will the chose seed number in the practice below.
+The equivalent of the function `st_make_grid()` for random sampling is `st_sample()`. Every time the function `st_sample()` is used a new set of random locations is created. To get the same random allocation every time we run the code, we need to set a "seed" using the function `set.seed()`. In the following example, we will use `set.seed(10)` but feel free to change or remove at will the chose seed number in the practice below.
 
 \  
 
@@ -19,11 +19,11 @@ The equivalent of `st_make_grid()` for random sampling is `st_sample()`. Every t
 As the plot locations are completely random, we have no control over how many plots are going to land on forest versus non-forest land. We can apply two possible strategies to reach our target number of plots inside forest land:
 
 1. Filter out non-forest polygons and make the sample size equal to the total number of plots in forest land from our 4 x 4 km sampling grid `nplot4_total$n`.
-1. Make the sampling size equal to the original number of points in a 4 x 4 km grid `nrow(sf_points4)` and accept that the final number of plots may be slightly different from the previous systematic sampling. 
+1. Make the sampling size equal to the original number of points in a 4 x 4 km grid `nrow(sf_points4)`, and accept that the final number of plots may be slightly different from the previous systematic sampling. 
 
-We can anticipate that the second solution is better if you are also interested in non-forest land, although there is no guarantee you will have enough plots in each land cover. We will favor option 1 as our primary target is forest carbon stock.
+We can anticipate that the second solution is better if you are also interested in non-forest land, although there is no guarantee you will have enough plots in each land cover type. Here, we will favor option 1, as our primary target is forest carbon stock.
 
-As `sf` objects behave similarly to tibbles, the tidyverse function `filter()` will allow us to prepare a forest only shapefile. To do so, we we filter only the forest types from the original land cover `sf` object.
+As `sf` objects behave similarly to tibbles, the tidyverse function, `filter()`, will allow us to prepare a forest only shapefile. To do so, we we filter only the forest types from the original land cover `sf` object.
 
 ```{r forest}
 
@@ -191,7 +191,7 @@ nplot_rd2
 
 \  
 
-Well done! In the next section, will compare the plot distribution between random and systematic sampling.
+Well done! In the next section, we will compare the plot distribution between random and systematic sampling.
 
 
 \  
@@ -199,7 +199,7 @@ Well done! In the next section, will compare the plot distribution between rando
 
 ## Proportion of plots per forest type {-}
 
-Let's compare how many plots fell in each land cover class of `r newland_name` between systematic and simple random sampling (Table \@ref(tab:compa)). We can see that our two simple sampling methods gave similar plot allocation per land cover. There is plus or minus 2 points between their proportion and the area proportion of the land cover classes. 
+Let's compare how many plots fell within each of `r newland_name`'s land cover classes, between systematic and simple random sampling (Table \@ref(tab:compa)). We can see that our two simple sampling methods gave similar plot allocation per land cover class. There is plus or minus 2 points between their proportion and the area proportion of the land cover classes. 
 
 
 ```{r compa, echo=F}
@@ -229,7 +229,7 @@ kab <- simple_res %>%
 
 kab_opt <- list(
   x = kab,
-  caption = "Area and percentage of plots in each forest land cover.",
+  caption = "Area and percentage of plots in each forest land cover class.",
   col.names = c("Land cover", "Area", "perc.",  rep(c("# plots", "perc."), 2)),
   #align = "ccccccccccccc",
   booktabs = TRUE,
@@ -255,7 +255,7 @@ if (book_format %in% c("html", "latex")) {
 ```
 
 
-Let's refer back to the **NFI eLearning Module 3: Sampling**. The differences between these sampling methods do not translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
+Let's refer back to **NFI eLearning Module 3: Sampling**. The differences between these sampling methods do not translate to major differences in plot allocation per land cover classes, but rather to statistical considerations.
 
 ::::::{.question data-latex=""}
 
@@ -267,5 +267,4 @@ Which of the following assertions are true?
 
 ::::::
 
-\  
 

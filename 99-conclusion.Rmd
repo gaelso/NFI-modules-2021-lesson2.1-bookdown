@@ -5,9 +5,9 @@
 
 `r ifelse(book_format == "html" & with_watermark, "<div class='watermark'>DRAFT</div>", "")`
 
-This is the end of Lesson 2, part 1. In this lesson we have tested different sampling designs based on the sampling size calculated for simple random sampling and applicable to systematic sampling. We have seen that considerations for choosing our method among these simple sampling designs were not related to differences in plot distribution per land cover class but rather to statistical concepts such as autocorrelation and how systematic grids are in fact random samples of size one.
+This is the end of Lesson 2, part 1. In this lesson we have tested different sampling designs based on the sampling size that was calculated for simple random sampling and that is applicable to systematic sampling. We have seen that considerations for choosing our method among these simple sampling designs were not related to differences in plot distribution per land cover class, but rather to statistical concepts such as autocorrelation and how systematic grids are in fact random samples of size one.
 
-In part 2 of this lesson 2, we will get the tree and plot data from the NFI crews for our systematic sampling design and start the data analysis. 
+In part 2 of this lesson 2, we will get the tree and plot data, from the NFI crews, for our systematic sampling design and start the data analysis. 
 
 ::::::{.infobox data-latex=""}
 
@@ -15,15 +15,15 @@ A plot distribution proportional to the relative areas of land cover classes is 
 
 From the sampling size formula for Simple Random Sampling (see section \@ref(size)), it is easy to understand that the number of plots to measure increases with the variability of our main variable of interest (represented by its coefficient of variation $CV$).
 
-If, for example, a population with a high $CV$ could be divided into two sub-populations each with a very low $CV$, we can intuitively understand that a small number of plot in each sub-population, and therefore a smaller overall number of plots, could give us a good precision. 
+If, for example, a population with a high $CV$ could be divided into two sub-populations each with a very low $CV$, we can intuitively understand that a small number of plots in each sub-population, and therefore a smaller overall number of plots, could give us a good precision. 
 
-Similarly, if one of the sub-population has a higher $CV$ than the other, and **even if its area were comparatively smaller relative to the other**, allocating a higher number of plots to this sub-population would increase the overall precision.
+Similarly, if one of the sub-populations has a higher $CV$ than the other, and **even if its area was comparatively smaller relative to the other**, allocating a higher number of plots to this sub-population would increase the overall precision.
 
-Our "simple" sampling methods provided a sample allocation to land cover classes more or less proportional to their relative areas. This meant a very small number of plots were allocated in Mangrove forest and a high number of plots in Mixed-Deciduous forest. However, the aboveground biomass $CV$ in Mangrove forests may very well be much higher than in Mixed-Deciduous forests. In this case, a sampling strategy that would give more plots to Mangrove and less to Mixed-Deciduous forests would increase the overall precision of our aboveground biomass and be more cost-efficient.
+Our "simple" sampling methods provided a sample allocation to land cover classes more or less proportional to their relative areas. This meant a very small number of plots were allocated in Mangrove forests and a high number of plots were allocated in Mixed-Deciduous forests. However, the aboveground biomass $CV$ in Mangrove forests may very well be much higher than in Mixed-Deciduous forests. In this case, a sampling strategy that would give more plots to Mangrove and less to Mixed-Deciduous forests would increase the overall precision of our aboveground biomass and be more cost-efficient.
 
 These strategies are called <txt-green>Stratified Sampling</txt-green> and will be the main topic of another interactive lesson.
 
-For now, we will continue with our systematic sampling design, based on 4 x 4 km grid.
+For now, we will continue with our systematic sampling design, based on the 4 x 4 km grid.
 
 ::::::
 
