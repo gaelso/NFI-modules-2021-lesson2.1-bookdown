@@ -16,20 +16,21 @@
 
 .title {
   font-family: 'Lora' !important;
-  font-style: italic !important;
+  /*font-style: italic !important;*/
   font-weight: normal !important;
   font-size: 2em !important;
 }
 
 .subtitle {
-  font-family: 'Lora' !important;
-  font-style: italic !important;
+  font-family: 'Noto Sans' !important;
+  font-style: normal !important;
   font-weight: bold !important;
   font-size: 2.4em !important;
 }
 
 .date {
-  font-family: 'Lora' !important;
+  font-family: 'Noto Sans' !important;
+  font-style: normal !important;*/
 }
 
 h1, h2, h3 {
@@ -68,7 +69,13 @@ pre code {
   white-space: inherit;
 }
 
-/* Style for watermark oand boxes*/
+.cols {
+  display: grid; 
+  grid-template-columns: 35% 5% 60%; 
+  /*grid-column-gap: 10px;*/
+}
+
+/* Style for watermark and boxes*/
 .watermark {
   opacity: 0.3;
   position: fixed;

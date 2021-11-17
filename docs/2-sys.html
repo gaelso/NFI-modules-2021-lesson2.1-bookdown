@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Systematic sampling | NFI eLearning Practice Simulation</title>
-  <meta name="description" content="2 Systematic sampling | NFI eLearning Practice Simulation" />
+  <title>2 Systematic sampling | NFI eLearning Practice Module</title>
+  <meta name="description" content="2 Systematic sampling | NFI eLearning Practice Module" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Systematic sampling | NFI eLearning Practice Simulation" />
+  <meta property="og:title" content="2 Systematic sampling | NFI eLearning Practice Module" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Systematic sampling | NFI eLearning Practice Simulation" />
+  <meta name="twitter:title" content="2 Systematic sampling | NFI eLearning Practice Module" />
   
   
   
@@ -134,10 +134,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./index.html"><b>NFI eLearning Practice Lesson 2.1</b></a></li>
+<li><a href="./index.html"><b>NFI eLearning Practice L2.1</b></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Cover page</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="1" data-path="1-size.html"><a href="1-size.html"><i class="fa fa-check"></i><b>1</b> Sampling size</a></li>
 <li class="chapter" data-level="2" data-path="2-sys.html"><a href="2-sys.html"><i class="fa fa-check"></i><b>2</b> Systematic sampling</a>
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i>Conclusion</a></li>
 <li class="divider"></li>
-<li><a href="https://rise.articulate.com/share/R7P0qbZvrtsqIOshAMhXz1RzNXkrGlSc#/" target="blank"><b>NFI eLearning modules</b></a></li>
+<li><a href="https://bit.ly/3m5VEsE" target="blank"><b>NFI eLearning modules</b></a></li>
 
 </ul>
 
@@ -172,7 +172,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NFI eLearning Practice Simulation</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">NFI eLearning Practice Module</a>
           </h1>
         </div>
 
@@ -185,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="watermark">
 DRAFT
 </div>
-<p>Now let’s see what sampling grid spacing is the closest to a sampling size of 306 plots, the number of selected plots selected with our budget constraint. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.</p>
+<p>Now let’s see what sampling grid spacing is the closest to a sampling size of 281 plots, the number of selected plots selected with our budget constraint. We will start with <txt-green>systematic sampling</txt-green> to account for the additional constraint on grid spacing, and afterwards we will make a simple random sampling that matches the same number of plots.</p>
 <p> </p>
 <div id="grid-spacing" class="section level2 unnumbered">
 <h2>Grid spacing</h2>
@@ -229,7 +229,7 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
 <span id="cb24-2"><a href="2-sys.html#cb24-2" aria-hidden="true" tabindex="-1"></a>grid_spacing <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sqrt</span>(area_forest_km2 <span class="sc">/</span> n10), <span class="dv">3</span>)</span>
 <span id="cb24-3"><a href="2-sys.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="2-sys.html#cb24-4" aria-hidden="true" tabindex="-1"></a>grid_spacing</span></code></pre></div>
-<pre class="Rout-sol"><code>[1] 4.052</code></pre>
+<pre class="Rout-sol"><code>[1] 4.228</code></pre>
 <p>The result is a grid spacing slightly larger than 4 km. We need to note here that the number of plot falling on forest land might differ from this hypothetical value, depending on the forest distribution. We need to create the grid and calculate how many plots are located on forest land to cross check that the grid spacing fits our desired cost/precision sampling size. Even after this confirmation, there can be mapping errors and several plots confirmed to be located on forest land may not be forested.</p>
 <p> </p>
 <div class="infobox">
@@ -423,7 +423,7 @@ Deciduous and Mangrove Forests, Woodland, Non-Forest and Water respectively.</p>
   &lt;int&gt;
 1   313</code></pre>
 <p> </p>
-<p>Good job! Looking back at the sampling size given by different precision levels, we had <code>306</code> plots for 10% precision and <code>136</code> plots for 15% precision. Our budget is enough to measure around 300 plots, so we can afford an expected precision of 10%. <txt-green>The 4 x 4 km grid</txt-green> anticipates 313 plots in forest land and its exactly what we need and can afford.</p>
+<p>Good job! Looking back at the sampling size given by different precision levels, we had <code>281</code> plots for 10% precision and <code>125</code> plots for 15% precision. Our budget is enough to measure around 300 plots, so we can afford an expected precision of 10%. <txt-green>The 4 x 4 km grid</txt-green> anticipates 313 plots in forest land and its exactly what we need and can afford.</p>
 <p> </p>
 </div>
 <div id="systematic-sampling-recap" class="section level2 unnumbered">
