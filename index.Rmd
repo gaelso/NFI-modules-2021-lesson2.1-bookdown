@@ -55,10 +55,7 @@ if (book_format %in% c("html", "latex")) {
 
 <txt-green>Welcome to the second lesson</txt-green> of the National Forest Inventory eLearning practice module.
 
-
-\  
-
-<img src="data/louland/lc-image.png" width="600" height="600" alt="The geocompr book cover" align="right" style="margin: 0 2em 2em 2em" />
+<img src="data/louland/lc-grid10-image.png" width="600" height="600" alt="The geocompr book cover" align="right" style="margin: 0 2em 2em 2em" />
 
 \  
 
