@@ -15,6 +15,9 @@ link-citations: yes
 #bibliography: [bib-jourabbr.bib, bib-trouves.bib, bib-recherch.bib, bib-rstudio.bib, bib-packages.bib]
 site: bookdown::bookdown_site
 biblio-style: bib-faouk.bst
+url: 'https://gaelso.github.io/NFI-modules-2021-lesson2.1-bookdown'
+github-repo: gaelso/NFI-modules-2021-lesson2.1-bookdown
+favicon: "images/favicon.ico"
 urlcolor: blue
 citecolor: blue
 linkcolor: RoyalBlue
@@ -77,6 +80,9 @@ Lesson 2 focuses on several sampling methods that we call "simple sampling" as t
 <br />
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 
+Developed with [bookdown](https://bookdown.org/yihui/bookdown/).
+
+Hosted on [Github pages](https://pages.github.com/).
 ```
 
 

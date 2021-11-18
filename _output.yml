@@ -1,6 +1,8 @@
 bookdown::gitbook:
   split_bib: FALSE
   css: style.css
+  includes:
+    in_header: [ga_tag.html]
   pandoc_args: ["--lua-filter=lua-pagebreak-color.lua"]
   config:
     toc:
@@ -13,7 +15,16 @@ bookdown::gitbook:
       engine: fuse
     edit: null
     download: null
-    sharing: no
+    sharing:
+      github: true
+      facebook: false
+      twitter: false
+      linkedin: false
+      weibo: false
+      instapaper: false
+      vk: false
+      whatsapp: false
+      all: false
     info: no
   split_by: chapter+number
 
